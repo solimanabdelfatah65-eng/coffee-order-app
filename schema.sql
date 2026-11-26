@@ -15,12 +15,23 @@ create table if not exists public.orders (
   phone text not null,
   address text not null default '',
   fulfillment text not null check (fulfillment in ('توصيل للمنزل', 'استلام من المطحنة')),
+  pickup_address text not null default '',
+  pickup_ready_time text not null default '',
+  delivery_fee numeric(10, 2) not null default 0 check (delivery_fee >= 0),
   items jsonb not null check (jsonb_typeof(items) = 'array'),
   total numeric(10, 2) not null check (total >= 0),
   status text not null default 'قيد الطحن والتجهيز'
-    check (status in ('قيد الطحن والتجهيز', 'جاهز للاستلام', 'تم التسليم')),
+    check (status in ('قيد الطحن والتجهيز', 'جاهز', 'تم التسليم')),
   created_at timestamptz not null default now()
 );
+
+alter table public.orders add column if not exists delivery_fee numeric(10, 2) not null default 0 check (delivery_fee >= 0);
+alter table public.orders add column if not exists pickup_address text not null default '';
+alter table public.orders add column if not exists pickup_ready_time text not null default '';
+alter table public.orders drop constraint if exists orders_status_check;
+update public.orders set status = 'جاهز' where status = 'جاهز للاستلام';
+alter table public.orders add constraint orders_status_check
+  check (status in ('قيد الطحن والتجهيز', 'جاهز', 'تم التسليم'));
 
 alter table public.products enable row level security;
 alter table public.orders enable row level security;
