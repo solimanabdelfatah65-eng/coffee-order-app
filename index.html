@@ -1732,12 +1732,60 @@ async function tryAdminPin(){
   error.style.display = 'block';
 }
 
+const CAFE_REPORT_TIME_ZONE = 'Africa/Cairo';
+const cairoDateFormatter = new Intl.DateTimeFormat('en-GB', {
+  timeZone: CAFE_REPORT_TIME_ZONE, year: 'numeric', month: '2-digit', day: '2-digit'
+});
+
+function cairoDateKey(date){
+  const parts = cairoDateFormatter.formatToParts(date);
+  const part = type=>parts.find(value=>value.type===type).value;
+  return `${part('year')}-${part('month')}-${part('day')}`;
+}
+
+function startOfCairoDate(dateKey){
+  const [year, month, day] = dateKey.split('-').map(Number);
+  const approximate = Date.UTC(year, month - 1, day);
+  const step = 15 * 60 * 1000;
+  let previousTime = approximate - 36 * 60 * 60 * 1000;
+  let previousKey = cairoDateKey(new Date(previousTime));
+  const rangeEnd = approximate + 36 * 60 * 60 * 1000;
+
+  for(let time = previousTime + step; time <= rangeEnd; time += step){
+    const currentKey = cairoDateKey(new Date(time));
+    if(currentKey === dateKey && previousKey !== dateKey){
+      let low = previousTime, high = time;
+      while(high - low > 1){
+        const middle = low + Math.floor((high - low) / 2);
+        if(cairoDateKey(new Date(middle)) === dateKey) high = middle;
+        else low = middle;
+      }
+      return new Date(high);
+    }
+    previousTime = time;
+    previousKey = currentKey;
+  }
+  throw new Error('تعذر حساب بداية يوم القاهرة.');
+}
+
+function cairoDayRange(now = new Date()){
+  const todayKey = cairoDateKey(now);
+  const [year, month, day] = todayKey.split('-').map(Number);
+  const nextDay = new Date(Date.UTC(year, month - 1, day + 1, 12));
+  const nextKey = cairoDateKey(nextDay);
+  return {
+    time_zone: CAFE_REPORT_TIME_ZONE,
+    start_at: startOfCairoDate(todayKey).toISOString(),
+    end_at: startOfCairoDate(nextKey).toISOString()
+  };
+}
+
 async function renderReport(){
   const body = document.getElementById('adminBody');
   if(!body) return;
   body.innerHTML = `<div class="center"><p>${t('rep_loading')}</p></div>`;
   let report;
-  try{ report = await adminCall('report'); }
+  try{ report = await adminCall('report', cairoDayRange()); }
   catch(e){
     body.innerHTML = `<div class="center"><p>${t('backend_error')}</p></div>`;
     return;
@@ -1857,7 +1905,9 @@ function drawOrders(){
   if(!arr.length){ list.innerHTML = `<div class="empty">${t('no_orders')}</div>`; return; }
   let html = '';
   for(const o of arr){
-    const time = new Date(o.created_at).toLocaleTimeString(lang==='ar'?'ar-EG':'en-GB',{hour:'2-digit',minute:'2-digit'});
+    const time = new Intl.DateTimeFormat(lang==='ar'?'ar-EG':'en-GB',{
+      timeZone:'Africa/Cairo',hour:'2-digit',minute:'2-digit'
+    }).format(new Date(o.created_at));
     const st = o.status==='ready' ? `<span class="badge ready">${t('st_ready')}</span>` : `<span class="badge">${t('st_new')}</span>`;
     let lines = '';
     (o._items||[]).forEach(i=>{
