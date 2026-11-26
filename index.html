@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1C140F">
+  <meta name="description" content="خصص طلب قهوتك الطازجة من البن والوزن ودرجة الطحن التي تحبها.">
+  <title>قَهْوَة | اطلب قهوتك على مزاجك</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #1C140F;
+      --card: #261C16;
+      --border: #4A382B;
+      --gold: #E2C6A5;
+      --caramel: #B6926C;
+      --muted: #a99989;
+      --text: #f5eee7;
+      --accent: linear-gradient(135deg, #E2C6A5 0%, #B6926C 100%);
+      --glow: 0 0 0 1px rgba(226, 198, 165, .16), 0 10px 28px rgba(182, 146, 108, .12);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      min-width: 320px;
+      min-height: 100vh;
+      margin: 0;
+      background: radial-gradient(ellipse at 82% 0%, rgba(111, 73, 42, .16), transparent 38rem), var(--bg);
+      color: var(--text);
+      font-family: "Cairo", sans-serif;
+      line-height: 1.65;
+    }
+    button, input { font: inherit; }
+    button { color: inherit; }
+    button:focus-visible, input:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+    .page { width: min(100% - 32px, 620px); margin: 0 auto; padding: 27px 0 22px; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+    .brand { display: flex; align-items: center; gap: 10px; }
+    .brand-mark {
+      display: grid; width: 40px; height: 40px; place-items: center;
+      border: 1px solid rgba(226, 198, 165, .32); border-radius: 14px;
+      background: rgba(226, 198, 165, .08); color: var(--gold); font-size: 21px;
+    }
+    .brand-name { margin: 0; font-size: 18px; font-weight: 800; letter-spacing: .2px; }
+    .brand-tagline { margin: -4px 0 0; color: var(--muted); font-size: 11px; }
+    .open-label { display: flex; align-items: center; gap: 7px; color: #d3c3b4; font-size: 11px; }
+    .open-dot { width: 7px; height: 7px; border-radius: 50%; background: #89a87b; box-shadow: 0 0 10px #89a87b77; }
+
+    .hero { margin: 0 0 23px; }
+    .hero-image {
+      position: relative; overflow: hidden; height: clamp(165px, 42vw, 242px);
+      border: 1px solid rgba(226, 198, 165, .17); border-radius: 16px;
+      background: #39291e; box-shadow: 0 12px 30px #00000030;
+    }
+    .hero-image img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 53%; }
+    .hero-image::after {
+      position: absolute; inset: 0; content: "";
+      background: linear-gradient(270deg, rgba(28, 20, 15, .76), transparent 75%), linear-gradient(0deg, rgba(28, 20, 15, .34), transparent 50%);
+      pointer-events: none;
+    }
+    .hero-copy { position: absolute; z-index: 1; top: 50%; right: clamp(18px, 5vw, 36px); max-width: 65%; transform: translateY(-50%); }
+    .eyebrow { color: var(--gold); font-size: 11px; font-weight: 700; letter-spacing: .4px; }
+    .hero-copy h1 { margin: 4px 0 2px; font-size: clamp(22px, 6vw, 34px); line-height: 1.35; }
+    .hero-copy p { margin: 0; color: #e4d7ca; font-size: 12px; }
+    .image-caption { margin: 5px 3px 0; color: #837568; font-size: 10px; }
+
+    .section { margin-top: 23px; }
+    .section-heading { display: flex; align-items: baseline; justify-content: space-between; margin: 0 1px 11px; }
+    .section-heading h2 { margin: 0; font-size: 15px; font-weight: 700; }
+    .section-hint { color: var(--muted); font-size: 10px; }
+    .coffee-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .coffee-card {
+      position: relative; min-height: 120px; padding: 13px 12px 11px;
+      border: 1px solid var(--border); border-radius: 14px;
+      background: linear-gradient(145deg, rgba(45, 33, 25, .92), rgba(38, 28, 22, .96));
+      text-align: right; cursor: pointer;
+      transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease, background .2s ease;
+    }
+    .coffee-card:hover { transform: translateY(-2px); border-color: #8d7053; }
+    .coffee-card.selected {
+      border-color: var(--gold); background: linear-gradient(145deg, rgba(75, 56, 40, .72), rgba(38, 28, 22, .98));
+      box-shadow: var(--glow);
+    }
+    .card-top { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+    .bean-icon { color: var(--caramel); font-size: 15px; }
+    .selected .bean-icon { color: var(--gold); }
+    .check-mark { display: grid; width: 17px; height: 17px; place-items: center; border: 1px solid #6d5947; border-radius: 50%; color: transparent; font-size: 10px; }
+    .selected .check-mark { border-color: transparent; background: var(--accent); color: var(--bg); }
+    .coffee-card h3 { margin: 4px 0 1px; font-size: 13px; font-weight: 700; }
+    .coffee-card p { margin: 0; color: #b6a697; font-size: 10px; }
+    .bean-price { margin-top: 5px; color: var(--gold); font-size: 11px; font-weight: 700; }
+    .bean-price span { color: #a99989; font-size: 9px; font-weight: 400; }
+
+    .pills { display: flex; flex-wrap: wrap; gap: 8px; }
+    .pill {
+      min-height: 37px; padding: 6px 15px; border: 1px solid var(--border); border-radius: 999px;
+      background: var(--card); color: #d5c7ba; font-size: 11px; cursor: pointer;
+      transition: background .2s ease, color .2s ease, border-color .2s ease, box-shadow .2s ease, transform .15s ease;
+    }
+    .pill:hover { border-color: #8d7053; }
+    .pill:active, .quantity-button:active, .cta:active { transform: scale(.97); }
+    .pill.selected { border-color: transparent; background: var(--accent); color: var(--bg); font-weight: 700; box-shadow: 0 4px 14px rgba(182, 146, 108, .2); }
+
+    .details-row { display: grid; grid-template-columns: .8fr 1.2fr; gap: 13px; align-items: end; }
+    .quantity-control { display: flex; height: 42px; align-items: center; justify-content: space-between; padding: 0 8px; border: 1px solid var(--border); border-radius: 12px; background: var(--card); }
+    .quantity-button { display: grid; width: 28px; height: 28px; place-items: center; border: 1px solid #594332; border-radius: 50%; background: #34261d; color: var(--gold); font-size: 18px; line-height: 1; cursor: pointer; transition: transform .15s ease, background .2s ease; }
+    .quantity-value { min-width: 22px; color: var(--text); font-size: 15px; font-weight: 700; text-align: center; }
+    .name-input { width: 100%; height: 42px; padding: 0 12px; border: 1px solid var(--border); border-radius: 12px; background: var(--card); color: var(--text); font-size: 12px; transition: border-color .2s ease, box-shadow .2s ease; }
+    .name-input::placeholder { color: #8e7d6e; }
+    .name-input:focus { border-color: var(--caramel); box-shadow: 0 0 0 3px rgba(182, 146, 108, .1); outline: none; }
+
+    .summary { margin-top: 22px; padding: 16px; border: 1px solid var(--border); border-radius: 15px; background: linear-gradient(145deg, rgba(45, 33, 25, .95), rgba(38, 28, 22, .98)); }
+    .summary-head { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; color: var(--gold); font-size: 12px; font-weight: 700; }
+    .summary-lines { display: grid; gap: 7px; }
+    .summary-line { display: flex; justify-content: space-between; gap: 15px; color: #b9aa9b; font-size: 11px; }
+    .summary-line strong { color: #f0e7de; font-size: 11px; font-weight: 600; text-align: left; }
+    .summary-order { text-align: left; }
+    .summary-divider { height: 1px; margin: 12px 0; background: linear-gradient(90deg, transparent, #604a37, transparent); }
+    .total-line { display: flex; align-items: center; justify-content: space-between; }
+    .total-line > span { color: #d2c1b2; font-size: 12px; font-weight: 600; }
+    .total-amount { color: var(--gold); font-size: 21px; font-weight: 800; line-height: 1.3; }
+    .total-amount small { color: #c1ae9b; font-size: 11px; font-weight: 500; }
+    .cta {
+      display: flex; width: 100%; min-height: 49px; align-items: center; justify-content: center; gap: 9px;
+      margin-top: 12px; border: 0; border-radius: 13px; background: var(--accent);
+      box-shadow: 0 7px 22px rgba(182, 146, 108, .2); color: var(--bg); font-size: 13px; font-weight: 800; cursor: pointer;
+      transition: transform .15s ease, box-shadow .2s ease, filter .2s ease;
+    }
+    .cta:hover { filter: brightness(1.06); box-shadow: 0 9px 26px rgba(182, 146, 108, .28); }
+    .cta-icon { font-size: 17px; }
+    .form-message { min-height: 20px; margin: 7px 2px 0; color: #e5b99d; font-size: 11px; }
+    footer { padding-top: 7px; color: #8d7b6a; text-align: center; }
+    .demo-note { margin: 0 0 3px; font-size: 10px; }
+    .copyright { margin: 0; color: #b7a18d; font-size: 10px; font-weight: 600; }
+
+    @media (min-width: 700px) {
+      .page { width: min(100% - 48px, 570px); padding-top: 34px; }
+      .section { margin-top: 25px; }
+      .coffee-grid { gap: 12px; }
+      .coffee-card { min-height: 126px; padding: 14px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">☕</div>
+        <div><p class="brand-name">قَهْوَة</p><p class="brand-tagline">قهوة على مزاجك</p></div>
+      </div>
+      <div class="open-label"><span class="open-dot" aria-hidden="true"></span> بنحمّصها بحب</div>
+    </header>
+
+    <figure class="hero">
+      <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&amp;fit=crop&amp;w=1200&amp;q=85" alt="حبوب قهوة محمصة وأدوات تحضير القهوة">
+        <div class="hero-copy">
+          <span class="eyebrow">من أول رشفة.. على ذوقك</span>
+          <h1>قهوتك، اختيارك</h1>
+          <p>اختار البن وظبّط طلبك زي ما بتحب.</p>
+        </div>
+      </div>
+      <figcaption class="image-caption">صورة توضيحية</figcaption>
+    </figure>
+
+    <section class="section" aria-labelledby="coffee-heading">
+      <div class="section-heading"><h2 id="coffee-heading">اختار البن</h2><span class="section-hint">بن طازة، محمّص بعناية</span></div>
+      <div class="coffee-grid" id="coffee-options" role="group" aria-label="اختار نوع البن"></div>
+    </section>
+    <section class="section" aria-labelledby="weight-heading">
+      <div class="section-heading"><h2 id="weight-heading">الوزن</h2><span class="section-hint">اختار الكمية اللي تناسبك</span></div>
+      <div class="pills" id="weight-options" role="group" aria-label="اختار وزن البن"></div>
+    </section>
+    <section class="section" aria-labelledby="grind-heading">
+      <div class="section-heading"><h2 id="grind-heading">درجة الطحن</h2><span class="section-hint">مظبوطة لطريقتك</span></div>
+      <div class="pills" id="grind-options" role="group" aria-label="اختار درجة الطحن"></div>
+    </section>
+
+    <section class="section details-row" aria-label="بيانات الطلب">
+      <div>
+        <div class="section-heading"><h2 id="quantity-heading">الكمية</h2></div>
+        <div class="quantity-control" role="group" aria-labelledby="quantity-heading">
+          <button class="quantity-button" id="decrease-quantity" type="button" aria-label="تقليل الكمية">−</button>
+          <output class="quantity-value" id="quantity-value" aria-live="polite">1</output>
+          <button class="quantity-button" id="increase-quantity" type="button" aria-label="زيادة الكمية">+</button>
+        </div>
+      </div>
+      <div>
+        <label class="section-heading" for="customer-name"><h2>اسمك</h2></label>
+        <input class="name-input" id="customer-name" name="name" type="text" autocomplete="name" maxlength="60" placeholder="اكتب اسمك">
+      </div>
+    </section>
+
+    <section class="summary" aria-labelledby="summary-heading">
+      <div class="summary-head" id="summary-heading"><span aria-hidden="true">✦</span> ملخص طلبك</div>
+      <div class="summary-lines">
+        <div class="summary-line"><span>الطلب</span><strong class="summary-order" id="summary-order"></strong></div>
+        <div class="summary-line"><span>الكمية</span><strong id="summary-quantity"></strong></div>
+      </div>
+      <div class="summary-divider"></div>
+      <div class="total-line"><span>الإجمالي</span><strong class="total-amount"><span id="summary-total"></span> <small>جنيه</small></strong></div>
+      <button class="cta" id="whatsapp-order" type="button"><span class="cta-icon" aria-hidden="true">◉</span>ابعت الطلب على واتساب</button>
+      <p class="form-message" id="form-message" role="status" aria-live="polite"></p>
+    </section>
+
+    <footer>
+      <p class="demo-note">نسخة تجريبية، الأسعار والأصناف للعرض بس.</p>
+      <p class="copyright">تصميم وتطوير: سليمان عبد الفتاح | ILSEMO © 2026</p>
+    </footer>
+  </main>
+
+  <script>
+    // عدّل الأصناف والأسعار من هنا؛ السعر الأساسي لكل 250 جرام.
+    const coffees = [
+      { name: "خلطة الفؤاد", description: "خلطة المحل الخاصة، تحميص وسط", price: 160 },
+      { name: "إثيوبي يرجاتشيف", description: "إيحاءات فاكهية وزهرية", price: 190 },
+      { name: "برازيلي سانتوس", description: "شوكولاتة ومكسرات، تقيل", price: 140 },
+      { name: "كولومبي سوبريمو", description: "كراميل وحموضة متوازنة", price: 200 }
+    ];
+    const weights = [
+      { label: "250 جرام", multiplier: 1 },
+      { label: "500 جرام", multiplier: 2 },
+      { label: "1 كيلو", multiplier: 4 }
+    ];
+    const grinds = ["تركي", "اسبريسو", "فلتر", "فرنش برس", "حبوب كاملة"];
+
+    // غيّر الرقم الافتراضي إلى رقم واتساب المتجر بصيغة دولية بدون علامة +.
+    const WHATSAPP_PHONE = "201000000000";
+    const state = { coffeeIndex: 0, weightIndex: 0, grindIndex: 0, quantity: 1 };
+    const coffeeOptions = document.getElementById("coffee-options");
+    const weightOptions = document.getElementById("weight-options");
+    const grindOptions = document.getElementById("grind-options");
+
+    function renderOptions() {
+      coffeeOptions.innerHTML = coffees.map((coffee, index) => `
+        <button class="coffee-card${index === state.coffeeIndex ? " selected" : ""}" type="button"
+          data-coffee="${index}" aria-pressed="${index === state.coffeeIndex}">
+          <span class="card-top"><span class="bean-icon" aria-hidden="true">✳</span>
+            <span class="check-mark" aria-hidden="true">✓</span></span>
+          <h3>${coffee.name}</h3>
+          <p>${coffee.description}</p>
+          <div class="bean-price">${coffee.price} جنيه <span>/ 250 جرام</span></div>
+        </button>`).join("");
+      weightOptions.innerHTML = weights.map((weight, index) => `
+        <button class="pill${index === state.weightIndex ? " selected" : ""}" type="button"
+          data-weight="${index}" aria-pressed="${index === state.weightIndex}">${weight.label}</button>`).join("");
+      grindOptions.innerHTML = grinds.map((grind, index) => `
+        <button class="pill${index === state.grindIndex ? " selected" : ""}" type="button"
+          data-grind="${index}" aria-pressed="${index === state.grindIndex}">${grind}</button>`).join("");
+    }
+
+    function updateSummary() {
+      const coffee = coffees[state.coffeeIndex];
+      const weight = weights[state.weightIndex];
+      const total = coffee.price * weight.multiplier * state.quantity;
+      document.getElementById("summary-order").textContent =
+        `${coffee.name} • ${weight.label} • ${grinds[state.grindIndex]}`;
+      document.getElementById("summary-quantity").textContent = state.quantity;
+      document.getElementById("quantity-value").textContent = state.quantity;
+      document.getElementById("summary-total").textContent = total.toLocaleString("ar-EG");
+      return total;
+    }
+
+    // تحديث الخيار النشط والملخص فور تغيير أي اختيار.
+    document.addEventListener("click", (event) => {
+      const coffeeButton = event.target.closest("[data-coffee]");
+      const weightButton = event.target.closest("[data-weight]");
+      const grindButton = event.target.closest("[data-grind]");
+      if (coffeeButton) state.coffeeIndex = Number(coffeeButton.dataset.coffee);
+      if (weightButton) state.weightIndex = Number(weightButton.dataset.weight);
+      if (grindButton) state.grindIndex = Number(grindButton.dataset.grind);
+      if (coffeeButton || weightButton || grindButton) {
+        renderOptions();
+        updateSummary();
+      }
+    });
+
+    document.getElementById("decrease-quantity").addEventListener("click", () => {
+      state.quantity = Math.max(1, state.quantity - 1);
+      updateSummary();
+    });
+    document.getElementById("increase-quantity").addEventListener("click", () => {
+      state.quantity += 1;
+      updateSummary();
+    });
+
+    document.getElementById("whatsapp-order").addEventListener("click", () => {
+      const nameInput = document.getElementById("customer-name");
+      const message = document.getElementById("form-message");
+      const name = nameInput.value.trim();
+      if (!name) {
+        message.textContent = "اكتب اسمك الأول عشان نجهز طلبك ☕";
+        nameInput.focus();
+        return;
+      }
+      message.textContent = "";
+      const coffee = coffees[state.coffeeIndex];
+      const weight = weights[state.weightIndex];
+      const total = coffee.price * weight.multiplier * state.quantity;
+      const orderText = [
+        "أهلاً، عايز أطلب قهوة ☕",
+        `الاسم: ${name}`,
+        `البن: ${coffee.name}`,
+        `الوزن: ${weight.label}`,
+        `درجة الطحن: ${grinds[state.grindIndex]}`,
+        `الكمية: ${state.quantity}`,
+        `الإجمالي: ${total.toLocaleString("ar-EG")} جنيه`
+      ].join("\n");
+      const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(orderText)}`;
+      window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+    });
+
+    renderOptions();
+    updateSummary();
+  </script>
+</body>
+</html>
