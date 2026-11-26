@@ -1,12 +1,9 @@
-// Optional Supabase connection. Add the project URL and public anon key to enable cloud sync.
-// Never put a service-role key in a browser-visible file.
-window.BON_AL_FOUAD_SUPABASE = (() => {
-  const url = "";
-  const anonKey = "";
+window.AL_FOUAD_SUPABASE = (() => {
+  const url = "https://xniilkeiaygntssuixwd.supabase.co";
+  const anonKey = "sb_publishable_1F-0FJZVT1NY9lD7mg3ZRw_kPfIK3jO";
   let clientPromise;
 
   async function getClient() {
-    if (!url || !anonKey) throw new Error("Supabase URL and anon key are not configured.");
     if (!clientPromise) {
       clientPromise = import("https://esm.sh/@supabase/supabase-js@2")
         .then(({ createClient }) => createClient(url, anonKey));
@@ -14,44 +11,44 @@ window.BON_AL_FOUAD_SUPABASE = (() => {
     return clientPromise;
   }
 
+  async function unwrap(result) {
+    if (result.error) throw result.error;
+    if (result.data && !Array.isArray(result.data) && (result.data.success === false || result.data.ok === false)) {
+      throw new Error(result.data.message || result.data.error || "تعذر تنفيذ طلب قاعدة البيانات.");
+    }
+    return result.data;
+  }
+
   return {
-    get enabled() { return Boolean(url && anonKey); },
-    async loadProducts() {
+    async loadCatalog() {
       const client = await getClient();
-      const { data, error } = await client.from("products").select("id,name,origin,description,price,image,roast").order("name");
-      if (error) throw error;
-      return data;
+      const [products, options] = await Promise.all([
+        client.from("roastery_products").select("*").eq("active", true).order("sort_order", { ascending: true }),
+        client.from("roastery_options").select("*").eq("active", true)
+      ]);
+      return {
+        products: await unwrap(products),
+        options: await unwrap(options)
+      };
     },
-    async loadOrders() {
+    async submitOrder(order) {
       const client = await getClient();
-      const { data, error } = await client.from("orders").select("*").order("created_at", { ascending: false });
-      if (error) throw error;
-      return data;
+      return unwrap(await client.rpc("submit_roastery_order", {
+        p_customer_name: order.customerName,
+        p_customer_phone: order.phone,
+        p_fulfillment: order.fulfillment,
+        p_address: order.address,
+        p_notes: order.notes,
+        p_items: order.items
+      }));
     },
-    async saveProducts(products) {
+    async roasteryApi(action, pin, payload) {
       const client = await getClient();
-      const rows = products.map(({ id, name, origin, description, price, image, roast }) =>
-        ({ id, name, origin, description, price, image, roast }));
-      const { error } = await client.from("products").upsert(rows);
-      if (error) throw error;
-    },
-    async saveOrder(order) {
-      const client = await getClient();
-      const { error } = await client.from("orders").insert({
-        id: order.id,
-        customer: order.customer,
-        phone: order.phone,
-        address: order.address,
-        fulfillment: order.fulfillment,
-        pickup_address: order.pickupAddress,
-        pickup_ready_time: order.pickupReadyTime,
-        delivery_fee: order.deliveryFee,
-        items: order.items,
-        total: order.total,
-        status: order.status,
-        created_at: order.createdAt
-      });
-      if (error) throw error;
+      return unwrap(await client.rpc("roastery_api", {
+        p_action: action,
+        p_pin: pin,
+        p_payload: payload || {}
+      }));
     }
   };
 })();

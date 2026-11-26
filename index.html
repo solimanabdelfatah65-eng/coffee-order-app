@@ -3,27 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#1A120E">
-  <meta name="description" content="بن الفؤاد — بن طازج، محمص بعناية ومطحون على مزاجك.">
-  <title>بن الفؤاد | حكاية قهوة على مزاجك</title>
+  <meta name="theme-color" content="#0F0B09">
+  <meta name="description" content="الفؤاد | Al Fouad — بن طازج، محمص بعناية ومطحون على مزاجك.">
+  <title>الفؤاد | Al Fouad</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://images.unsplash.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@400;500;600;700;800&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="supabase-config.js"></script>
   <style>
     :root {
       color-scheme: dark;
-      --bg: #1A120E;
-      --surface: #3A2418;
-      --surface-raised: #6B4A2E;
-      --charcoal: #4A4A46;
-      --gold: #AB8462;
-      --gold-light: #D5C4AE;
-      --muted: #AB8462;
-      --text: #f8f2e9;
-      --line: rgba(171, 132, 98, .19);
-      --glass: rgba(26, 18, 14, .78);
+      --bg: #0F0B09;
+      --surface: #211710;
+      --surface-raised: #3A2418;
+      --charcoal: #2A211B;
+      --gold: #C88A55;
+      --gold-light: #F5E6D3;
+      --muted: #D2B9A1;
+      --text: #F5E6D3;
+      --line: rgba(200, 138, 85, .28);
+      --glass: rgba(15, 11, 9, .94);
       --shadow: 0 22px 65px rgba(0, 0, 0, .34);
     }
 
@@ -35,11 +35,13 @@
       overflow-x: hidden;
       background: radial-gradient(ellipse at 85% 4%, rgba(107, 74, 46, .16), transparent 38rem), var(--bg);
       color: var(--text);
-      font-family: "Cairo", sans-serif;
+      font-family: "Rubik", "Cairo", sans-serif;
       line-height: 1.7;
     }
     body.drawer-open { overflow: hidden; }
     button, input, select { font: inherit; }
+    h1, h2, h3, .brand-name, .total-amount, .bean-price { font-family: "Cairo", sans-serif; }
+    .brand-name, .intro-name { font-family: "Aref Ruqaa", serif; }
     button { color: inherit; }
     button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 3px; }
     img { display: block; max-width: 100%; }
@@ -72,7 +74,7 @@
       position: sticky; z-index: 10; top: 0;
       border-bottom: 1px solid var(--line);
       background: var(--glass);
-      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      backdrop-filter: none; -webkit-backdrop-filter: none;
     }
     .topbar-inner { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
     .brand { display: flex; align-items: center; gap: 11px; color: inherit; text-decoration: none; }
@@ -119,7 +121,7 @@
     }
     .cta { background: linear-gradient(135deg, var(--gold-light), var(--gold)); color: var(--bg); box-shadow: 0 9px 30px rgba(107,74,46,.25); }
     .cta:hover { transform: translateY(-2px); box-shadow: 0 13px 32px rgba(107,74,46,.34); filter: brightness(1.05); }
-    .outline-cta { border-color: rgba(213,196,174,.45); background: rgba(255,255,255,.06); color: var(--text); backdrop-filter: blur(10px); }
+    .outline-cta { border-color: rgba(213,196,174,.45); background: rgba(15,11,9,.82); color: var(--text); }
     .outline-cta:hover { border-color: var(--gold-light); background: rgba(255,255,255,.12); }
     .hero-proof { display: flex; flex-wrap: wrap; gap: 23px; margin-top: 38px; color: #d7c6b3; font-size: 11px; }
     .hero-proof span { display: inline-flex; align-items: center; gap: 7px; }
@@ -173,13 +175,13 @@
     .coffee-info p { min-height: 42px; margin: 0; color: var(--muted); font-size: 10px; line-height: 1.9; }
     .bean-price { margin-top: 11px; color: var(--gold-light); font-size: 14px; font-weight: 800; }
     .bean-price small { color: var(--muted); font-size: 9px; font-weight: 500; }
-    .roast-badge { position: absolute; top: 13px; right: 13px; padding: 4px 9px; border: 1px solid rgba(255,255,255,.2); border-radius: 99px; background: rgba(18,12,8,.63); color: #fff3df; font-size: 9px; backdrop-filter: blur(8px); }
+    .roast-badge { position: absolute; top: 13px; right: 13px; padding: 4px 9px; border: 1px solid rgba(255,255,255,.2); border-radius: 99px; background: #0F0B09; color: #F5E6D3; font-size: 9px; }
 
     .order-builder { display: grid; grid-template-columns: minmax(0,1.12fr) minmax(310px,.88fr); gap: 21px; align-items: start; }
     .builder-panel, .summary-panel {
       border: 1px solid var(--line); border-radius: 21px;
       background: linear-gradient(145deg, rgba(58,36,24,.82), rgba(26,18,14,.9));
-      box-shadow: var(--shadow); backdrop-filter: blur(16px);
+      box-shadow: var(--shadow);
     }
     .builder-panel { padding: clamp(19px, 4vw, 30px); }
     .option-block + .option-block { margin-top: 23px; padding-top: 20px; border-top: 1px solid rgba(171,132,98,.19); }
@@ -260,7 +262,7 @@
     .footer-signature-label { color: var(--gold); font-weight: 800; }
     .footer-signature-handle { color: var(--gold-light); font-family: Georgia,serif; font-size: 14px; }
 
-    .drawer-backdrop, .modal-backdrop { position: fixed; z-index: 30; inset: 0; background: rgba(0,0,0,.63); opacity: 0; visibility: hidden; transition: opacity .27s, visibility .27s; backdrop-filter: blur(4px); }
+    .drawer-backdrop, .modal-backdrop { position: fixed; z-index: 30; inset: 0; background: rgba(0,0,0,.72); opacity: 0; visibility: hidden; transition: opacity .27s, visibility .27s; }
     .drawer-backdrop.open, .modal-backdrop.open { opacity: 1; visibility: visible; }
     .cart-drawer {
       position: fixed; z-index: 31; top: 0; right: 0; display: flex; width: min(450px,100%); height: 100dvh; flex-direction: column;
@@ -382,10 +384,10 @@
   </style>
 </head>
 <body>
-  <div class="intro-loader" id="intro-loader" role="status" aria-label="مرحباً بك في بن الفؤاد">
+  <div class="intro-loader" id="intro-loader" role="status" aria-label="الفؤاد | Al Fouad">
     <button class="intro-skip" id="intro-skip" type="button">تخطي</button>
     <div class="intro-emblem" aria-hidden="true">✦</div>
-    <p class="intro-name">بن الفؤاد</p>
+    <p class="intro-name">الفؤاد | Al Fouad</p>
     <p class="intro-subtitle">قهوة على مزاجك</p>
     <div class="intro-beans" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
     <span class="intro-rule" aria-hidden="true"></span>
@@ -393,9 +395,9 @@
   <div class="scroll-progress" aria-hidden="true"><span id="scroll-progress"></span></div>
   <header class="topbar">
     <div class="container topbar-inner">
-      <a class="brand" href="#" aria-label="بن الفؤاد — الصفحة الرئيسية">
+      <a class="brand" href="#" aria-label="الفؤاد | Al Fouad">
         <span class="brand-mark" aria-hidden="true">✦</span>
-        <span><span class="brand-name">بن الفؤاد</span><span class="brand-latin">BON AL-FOUAD · ROASTERY</span></span>
+        <span><span class="brand-name">الفؤاد | Al Fouad</span><span class="brand-latin">ROASTERY</span></span>
       </a>
       <div class="header-actions">
         <button class="button-quiet admin-trigger" id="admin-open" type="button" aria-label="لوحة الإدارة والكاشير">⚙ <span>الإدارة / الكاشير</span></button>
@@ -414,7 +416,7 @@
     <span class="floating-bean one" aria-hidden="true">◉</span><span class="floating-bean two" aria-hidden="true">◉</span><span class="floating-bean three" aria-hidden="true">◉</span>
     <div class="container hero-content">
       <span class="eyebrow">حكاية تبدأ من أول رشفة</span>
-      <h1 id="hero-title">بن الفؤاد،<br><em>على مزاجك.</em></h1>
+      <h1 id="hero-title">الفؤاد | Al Fouad<br><em>بن على مزاجك.</em></h1>
       <p class="hero-copy">حَبّة مختارة، تحميص على مهل، وطحنة تناسب فنجانك. اصنع خلطتك كما تحب، ونحضّرها لك طازجة من المطحنة.</p>
       <div class="hero-actions">
         <a class="cta" href="#customer-step">ابدأ طلبك <span aria-hidden="true">←</span></a>
@@ -425,34 +427,6 @@
   </section>
 
   <main>
-    <section class="section container customer-step" id="customer-step" aria-labelledby="customer-heading">
-      <div class="section-head reveal">
-        <div><p class="section-kicker">الخطوة الأولى · بياناتك واستلامك</p><h2 id="customer-heading">نبدأ بطلبك</h2></div>
-        <p class="section-note">اكتب بيانات التواصل، ثم اختر طريقة الاستلام قبل تخصيص خلطة بنّك.</p>
-      </div>
-      <form class="customer-panel reveal" id="customer-details-form" novalidate>
-        <div class="customer-fields">
-          <div class="form-field"><label for="order-customer-name">الاسم بالكامل</label><input id="order-customer-name" name="name" autocomplete="name" maxlength="70" required placeholder="اكتب اسمك بالكامل"></div>
-          <div class="form-field"><label for="order-customer-phone">رقم الهاتف</label><input id="order-customer-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="24" required placeholder="01xxxxxxxxx"></div>
-          <div class="form-field address-wide"><label for="order-customer-address">العنوان بالتفصيل</label><input id="order-customer-address" name="address" autocomplete="street-address" maxlength="180" required placeholder="المنطقة والشارع ورقم العقار وأقرب علامة مميزة"></div>
-        </div>
-        <div class="fulfillment-heading"><strong>كيف تحب تستلم طلبك؟</strong><span>اختر طريقة واحدة للمتابعة</span></div>
-        <div class="fulfillment-cards" id="fulfillment-options" role="group" aria-label="اختيار طريقة استلام الطلب">
-          <button class="fulfillment-card" type="button" data-fulfillment="pickup" aria-pressed="false">
-            <span class="fulfillment-icon" aria-hidden="true">⌖</span>
-            <span class="fulfillment-card-copy"><strong>استلام من المطحنة</strong><small>بدون رسوم توصيل · جاهز خلال ساعة</small><small class="fulfillment-address">المنصوره، نبروه، أمام كوبري أبو ميره</small></span>
-            <span class="fulfillment-check" aria-hidden="true">✓</span>
-          </button>
-          <button class="fulfillment-card" type="button" data-fulfillment="delivery" aria-pressed="false">
-            <span class="fulfillment-icon" aria-hidden="true">⌂</span>
-            <span class="fulfillment-card-copy"><strong>توصيل للمنزل</strong><small>رسوم التوصيل الثابتة: ٢٠ جنيه</small><small class="fulfillment-address">نوصل طلبك للعنوان المسجل بالأعلى</small></span>
-            <span class="fulfillment-check" aria-hidden="true">✓</span>
-          </button>
-        </div>
-        <p class="customer-fulfillment-note" id="customer-fulfillment-note" role="status" aria-live="polite">سجّل بياناتك واختر طريقة الاستلام للمتابعة.</p>
-      </form>
-    </section>
-
     <section class="section container" id="choose-coffee" aria-labelledby="coffee-heading">
       <div class="section-head reveal">
         <div><p class="section-kicker">من مزارع مختارة إلى فنجانك</p><h2 id="coffee-heading">خلطات لها حكاية</h2></div>
@@ -515,6 +489,35 @@
       </div>
     </section>
 
+    <section class="section container customer-step" id="customer-step" aria-labelledby="customer-heading">
+      <div class="section-head reveal">
+        <div><p class="section-kicker">الخطوة الأخيرة · بياناتك واستلامك</p><h2 id="customer-heading">بيانات العميل</h2></div>
+        <p class="section-note">أضف اختياراتك إلى السلة أولاً، ثم أكمل بيانات التواصل وطريقة الاستلام لإرسال الطلب.</p>
+      </div>
+      <form class="customer-panel reveal" id="customer-details-form" novalidate>
+        <div class="customer-fields">
+          <div class="form-field"><label for="order-customer-name">الاسم بالكامل</label><input id="order-customer-name" name="name" autocomplete="name" maxlength="70" required placeholder="اكتب اسمك بالكامل"></div>
+          <div class="form-field"><label for="order-customer-phone">رقم الهاتف</label><input id="order-customer-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="24" required placeholder="01xxxxxxxxx"></div>
+          <div class="form-field address-wide" id="address-field" hidden><label for="order-customer-address">عنوان التوصيل</label><input id="order-customer-address" name="address" autocomplete="street-address" maxlength="180" placeholder="المنطقة والشارع ورقم العقار وأقرب علامة مميزة"></div>
+          <div class="form-field address-wide"><label for="order-customer-notes">ملاحظات (اختياري)</label><input id="order-customer-notes" name="notes" maxlength="300" placeholder="أي تفاصيل إضافية لطلبك"></div>
+        </div>
+        <div class="fulfillment-heading"><strong>كيف تحب تستلم طلبك؟</strong><span>اختر طريقة واحدة للمتابعة</span></div>
+        <div class="fulfillment-cards" id="fulfillment-options" role="group" aria-label="اختيار طريقة استلام الطلب">
+          <button class="fulfillment-card" type="button" data-fulfillment="pickup" aria-pressed="false">
+            <span class="fulfillment-icon" aria-hidden="true">⌖</span>
+            <span class="fulfillment-card-copy"><strong>استلام من المطحنة</strong><small>المنصورة، نبروه، أمام كوبري أبو ميره</small></span>
+            <span class="fulfillment-check" aria-hidden="true">✓</span>
+          </button>
+          <button class="fulfillment-card" type="button" data-fulfillment="delivery" aria-pressed="false">
+            <span class="fulfillment-icon" aria-hidden="true">⌂</span>
+            <span class="fulfillment-card-copy"><strong>توصيل للمنزل</strong><small>أدخل عنوان التوصيل بالأعلى</small></span>
+            <span class="fulfillment-check" aria-hidden="true">✓</span>
+          </button>
+        </div>
+        <p class="customer-fulfillment-note" id="customer-fulfillment-note" role="status" aria-live="polite">اختر طريقة الاستلام وأكمل بيانات التواصل.</p>
+      </form>
+    </section>
+
     <section class="section container" aria-labelledby="ritual-heading">
       <div class="section-head reveal">
         <div><p class="section-kicker">طقوس صغيرة، ومزاج كبير</p><h2 id="ritual-heading">لكل فنجان حكايته</h2></div>
@@ -533,7 +536,7 @@
   </main>
   <footer>
     <div class="container">
-      <div>كل فنجان حكاية — <strong>بن الفؤاد</strong> · صنع بحب في مصر</div>
+      <div>الفؤاد | Al Fouad · محمصة ومطحنة قهوة</div>
       <div class="footer-signature" dir="ltr">
         <span class="footer-signature-label">By SWE:</span>
         <span>Soliman Abdelfatah</span>
@@ -578,195 +581,188 @@
   <script>
     "use strict";
 
-    const STORAGE = { products: "bonAlFouad.products.v1", cart: "bonAlFouad.cart.v1", orders: "bonAlFouad.orders.v1", customer: "bonAlFouad.customer.v1" };
-    const STORE_INFO = { address: "المنصورة، نبروه، أمام كوبري أبو ميره", pickupReadyTime: "ساعة" };
-    const DELIVERY_FEE = 20;
-    const DEFAULT_PRODUCTS = [
-      { id: "fouad", name: "خلطة الفؤاد الخاصة", origin: "خلطة المطحنة", description: "موزونة بعناية، بقوام غني ونهاية دافئة.", price: 160, image: "photo-1559525839-b184a4d698c7", roast: "وسط" },
-      { id: "yirgacheffe", name: "إثيوبي يرجاتشيف", origin: "إثيوبيا · يرجاتشيف", description: "إيحاءات زهرية وفاكهية، ونكهة مشرقة.", price: 210, image: "photo-1447933601403-0c6688de566e", roast: "فاتح" },
-      { id: "santos", name: "برازيلي سانتوس", origin: "البرازيل · سانتوس", description: "شوكولاتة ومكسرات، وحلاوة متوازنة.", price: 145, image: "photo-1495474472287-4d71bcdd2085", roast: "غامق" },
-      { id: "supremo", name: "كولومبي سوبريمو", origin: "كولومبيا · سوبريمو", description: "كراميل وحموضة لطيفة بطعم متوازن.", price: 195, image: "photo-1559496417-e7f25cb247f3", roast: "وسط" }
-    ];
-    const WEIGHTS = [{ label: "100 جم", grams: 100 }, { label: "250 جم", grams: 250 }, { label: "500 جم", grams: 500 }, { label: "1 كجم", grams: 1000 }];
-    const GRINDS = ["تركي", "إسبريسو", "فلتر", "فرنش برس", "حبوب كاملة"];
-    const BLENDS = [{ label: "سادة", extra: 0 }, { label: "حبهان", extra: 12 }, { label: "مستكة", extra: 18 }, { label: "جوزة الطيب", extra: 10 }];
-    const ROASTS = ["فاتح", "وسط", "غامق"];
-    const ORDER_STATUSES = ["قيد الطحن والتجهيز", "جاهز", "تم التسليم"];
-    const money = value => new Intl.NumberFormat("ar-EG").format(value);
-
-    function readStorage(key, fallback) {
-      try {
-        const value = localStorage.getItem(key);
-        return value ? JSON.parse(value) : fallback;
-      } catch (error) {
-        console.error(`تعذر قراءة التخزين المحلي (${key}):`, error);
-        return fallback;
-      }
-    }
-    function saveStorage(key, value) {
-      try {
-        localStorage.setItem(key, JSON.stringify(value));
-        return true;
-      } catch (error) {
-        console.error(`تعذر حفظ البيانات محلياً (${key}):`, error);
-        showMessage("تعذر حفظ التغييرات. تحقق من مساحة التخزين في المتصفح.", true);
-        return false;
-      }
-    }
-    function validProducts(value) {
-      return Array.isArray(value) && value.length && value.every(item =>
-        item && typeof item.id === "string" && typeof item.name === "string" &&
-        typeof item.price === "number" && Number.isFinite(item.price) && item.price > 0 &&
-        typeof item.image === "string");
-    }
-    function escapeHTML(value) {
-      return String(value).replace(/[&<>"']/g, character => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[character]);
-    }
-    function imageURL(photo, width, quality) {
-      return `https://images.unsplash.com/${photo}?auto=format&fit=crop&w=${width}&q=${quality}`;
-    }
-
-    const storedProducts = readStorage(STORAGE.products, null);
-    const storedCustomer = readStorage(STORAGE.customer, {});
+    const STORE_INFO = { address: "المنصورة، نبروه، أمام كوبري أبو ميره" };
+    const STATUS_LABELS = { pending: "قيد التجهيز", roasting: "جاري التحميص والطحن", ready: "جاهز للاستلام", completed: "تم التسليم" };
     const state = {
-      products: validProducts(storedProducts) ? storedProducts : DEFAULT_PRODUCTS.map(product => ({ ...product })),
-      cart: readStorage(STORAGE.cart, []),
-      orders: readStorage(STORAGE.orders, []),
-      customer: storedCustomer && typeof storedCustomer === "object" ? {
-        name: typeof storedCustomer.name === "string" ? storedCustomer.name : "",
-        phone: typeof storedCustomer.phone === "string" ? storedCustomer.phone : "",
-        address: typeof storedCustomer.address === "string" ? storedCustomer.address : ""
-      } : { name: "", phone: "", address: "" },
-      productId: validProducts(storedProducts) && storedProducts.some(item => item.id === "fouad") ? "fouad" : (storedProducts && storedProducts[0] && storedProducts[0].id) || "fouad",
-      weightIndex: 1,
-      grind: "تركي",
-      blend: BLENDS[0].label,
-      roast: "وسط",
-      quantity: 1,
-      fulfillment: storedCustomer && ["pickup", "delivery"].includes(storedCustomer.fulfillment) ? storedCustomer.fulfillment : ""
+      products: [], options: { weights: [], roasts: [], grinds: [], blends: [] }, productId: "",
+      weight: null, roast: null, grind: null, blend: null, quantity: 1, cart: [],
+      fulfillment: "", customer: { name: "", phone: "", address: "", notes: "" }, orders: []
     };
-    if (!validProducts(storedProducts)) saveStorage(STORAGE.products, state.products);
-    if (!Array.isArray(state.cart)) state.cart = [];
-    if (!Array.isArray(state.orders)) state.orders = [];
-    else if (state.orders.some(order => order.status === "جاهز للاستلام")) {
-      state.orders = state.orders.map(order => order.status === "جاهز للاستلام" ? { ...order, status: "جاهز" } : order);
-      saveStorage(STORAGE.orders, state.orders);
-    }
     const element = id => document.getElementById(id);
-    const selectedProduct = () => state.products.find(product => product.id === state.productId) || state.products[0];
-    const selectedBlend = () => BLENDS.find(option => option.label === state.blend) || BLENDS[0];
-    const currentDeliveryFee = () => state.fulfillment === "delivery" ? DELIVERY_FEE : 0;
-    const currentPrice = () => Math.round((selectedProduct().price + selectedBlend().extra) * WEIGHTS[state.weightIndex].grams / 250) * state.quantity + currentDeliveryFee();
-    const cartSubtotal = () => state.cart.reduce((total, item) => total + item.price * item.quantity, 0);
-    const cartDeliveryFee = () => state.cart.length && state.fulfillment === "delivery" ? DELIVERY_FEE : 0;
+    const money = value => new Intl.NumberFormat("ar-EG", { maximumFractionDigits: 2 }).format(Number(value) || 0);
+    const escapeHTML = value => String(value == null ? "" : value).replace(/[&<>"']/g, character =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[character]);
+    const numberFrom = (...values) => {
+      const value = values.find(item => item !== undefined && item !== null && item !== "");
+      const parsed = Number(value);
+      return Number.isFinite(parsed) ? parsed : 0;
+    };
+    const normalizeDigits = value => String(value).replace(/[٠-٩۰-۹]/g, digit =>
+      String("٠١٢٣٤٥٦٧٨٩۰۱۲۳۴۵۶۷۸۹".indexOf(digit) % 10));
+    const showMessage = (message, isError) => {
+      const target = element("form-message");
+      target.textContent = message;
+      target.style.color = isError ? "#ffb5a5" : "";
+    };
+    const selectedProduct = () => state.products.find(product => product.id === state.productId);
+    const selectedBlend = () => state.options.blends.find(option => option.label === state.blend);
+    const currentLinePrice = () => {
+      const product = selectedProduct();
+      const weight = state.options.weights.find(option => option.label === state.weight);
+      const blend = selectedBlend();
+      if (!product || !weight) return 0;
+      return ((product.pricePerKg + product.extraPricePerKg + (blend ? blend.extraPricePerKg : 0)) * weight.grams) / 1000;
+    };
+    const cartSubtotal = () => state.cart.reduce((total, item) => total + item.lineTotal, 0);
+    const cartTotal = () => cartSubtotal();
     const customerFormData = () => ({
       name: element("order-customer-name").value.trim(),
-      phone: element("order-customer-phone").value.trim(),
-      address: element("order-customer-address").value.trim()
+      phone: normalizeDigits(element("order-customer-phone").value).trim(),
+      address: element("order-customer-address").value.trim(),
+      notes: element("order-customer-notes").value.trim()
     });
-    const customerPhoneDigits = phone => phone.replace(/[^\d٠-٩۰-۹]/g, "").length;
-    const customerDetailsValid = customer => customer.name.length >= 3 && customerPhoneDigits(customer.phone) >= 7 && customer.address.length >= 8;
-    const customerReady = () => customerDetailsValid(state.customer) && ["pickup", "delivery"].includes(state.fulfillment);
+    const customerReady = () => state.customer.name.length >= 2 &&
+      normalizeDigits(state.customer.phone).replace(/\D/g, "").length >= 7 &&
+      (state.fulfillment === "pickup" || (state.fulfillment === "delivery" && state.customer.address.length >= 8));
 
-    function showMessage(message, isError) {
-      const target = element("form-message");
-      if (target) {
-        target.textContent = message;
-        target.style.color = isError ? "#e7a795" : "";
-      }
+    function normalizeProduct(row) {
+      return {
+        ...row,
+        id: String(row.id),
+        name: String(row.name_ar || row.name || row.product_name || ""),
+        nameEnglish: String(row.name_en || ""),
+        origin: String(row.origin || row.origin_name || ""),
+        description: String(row.description_ar || row.description || ""),
+        image: String(row.image_url || row.image || ""),
+        pricePerKg: numberFrom(row.price_per_kg, row.pricePerKg),
+        extraPricePerKg: numberFrom(row.extra_price_per_kg, row.extraPricePerKg),
+        sortOrder: numberFrom(row.sort_order),
+        category: String(row.category || "blends")
+      };
+    }
+    function categoryOf(row) {
+      return String(row.option_group || row.option_type || row.category || row.group_name || row.type || "").toLowerCase();
+    }
+    function optionKind(row) {
+      const category = categoryOf(row);
+      if (/weight|وزن/.test(category)) return "weights";
+      if (/roast|تحميص/.test(category)) return "roasts";
+      if (/grind|طحن|طحنة/.test(category)) return "grinds";
+      if (/blend|addon|خلط|تحويج|إضاف/.test(category)) return "blends";
+      return "";
+    }
+    function weightGrams(row, label) {
+      const direct = numberFrom(row.weight_grams, row.grams, row.weight);
+      if (direct > 0) return direct;
+      const normalized = normalizeDigits(label);
+      const numeric = normalized.match(/\d+(?:\.\d+)?/);
+      if (numeric) return Number(numeric[0]) * (/kg|كجم|كيلو/i.test(normalized) ? 1000 : 1);
+      if (/ثمن/.test(label)) return 125;
+      if (/ربع/.test(label)) return 250;
+      if (/نصف/.test(label)) return 500;
+      if (/كيلو/.test(label)) return 1000;
+      return 0;
+    }
+    function normalizeOptions(rows) {
+      const result = { weights: [], roasts: [], grinds: [], blends: [] };
+      rows.forEach(row => {
+        const kind = optionKind(row);
+        const label = String(row.name_ar || row.label || row.name || row.option_name || row.value || row.title || "");
+        if (!kind || !label) return;
+        if (kind === "weights") {
+          const grams = weightGrams(row, label);
+          if (grams > 0) result.weights.push({ label, grams, sortOrder: numberFrom(row.sort_order) });
+        } else if (kind === "blends") {
+          result.blends.push({ label, extraPricePerKg: numberFrom(row.extra_price_per_kg, row.extra_price), sortOrder: numberFrom(row.sort_order) });
+        } else {
+          result[kind].push({ label, sortOrder: numberFrom(row.sort_order) });
+        }
+      });
+      Object.values(result).forEach(options => options.sort((left, right) => numberFrom(left.sortOrder) - numberFrom(right.sortOrder)));
+      return result;
+    }
+    function imageURL(image) {
+      if (!image) return "";
+      return /^https?:\/\//i.test(image) ? image : `https://images.unsplash.com/${encodeURIComponent(image)}?auto=format&fit=crop&w=750&q=82`;
     }
     function renderProducts() {
-      element("coffee-options").innerHTML = state.products.map((product, index) => `
-        <button class="coffee-card reveal${product.id === state.productId ? " selected" : ""}" type="button" data-coffee="${escapeHTML(product.id)}" aria-pressed="${product.id === state.productId}">
-          <span class="roast-badge">تحميص ${escapeHTML(product.roast || "وسط")}</span>
-          <span class="coffee-photo"><img src="${imageURL(escapeHTML(product.image), 750, 82)}" alt="${escapeHTML(product.name)} — حبوب بن مختارة" loading="${index > 1 ? "lazy" : "eager"}" data-fallback="beans"></span>
-          <span class="coffee-info"><span class="coffee-origin">${escapeHTML(product.origin || "بن مختار")}</span><h3>${escapeHTML(product.name)}</h3><p>${escapeHTML(product.description || "")}</p><span class="bean-price">${money(product.price)} جنيه <small>/ 250 جم</small></span></span>
+      const grid = element("coffee-options");
+      if (!state.products.length) {
+        grid.innerHTML = '<p class="section-note">لا توجد أصناف بن متاحة حالياً.</p>';
+        return;
+      }
+      grid.innerHTML = state.products.map(product => `
+        <button class="coffee-card${product.id === state.productId ? " selected" : ""}" type="button" data-coffee="${escapeHTML(product.id)}" aria-pressed="${product.id === state.productId}">
+          <span class="coffee-photo">${product.image ? `<img src="${escapeHTML(imageURL(product.image))}" alt="${escapeHTML(product.name)}" loading="lazy">` : '<span aria-hidden="true">☕</span>'}</span>
+          <span class="coffee-info"><span class="coffee-origin">${escapeHTML(product.origin)}</span><h3>${escapeHTML(product.name)}</h3><p>${escapeHTML(product.description)}</p><span class="bean-price">${money(product.pricePerKg)} جنيه <small>/ كجم</small></span></span>
         </button>`).join("");
-      element("coffee-options").querySelectorAll(".coffee-card").forEach(card => {
-        card.addEventListener("pointermove", event => {
-          if (event.pointerType === "touch") return;
-          const bounds = card.getBoundingClientRect();
-          const x = (event.clientX - bounds.left) / bounds.width - .5;
-          const y = (event.clientY - bounds.top) / bounds.height - .5;
-          card.style.transition = "border-color .25s, box-shadow .3s, transform .08s";
-          card.style.transform = `perspective(900px) rotateX(${y * -10}deg) rotateY(${x * 13}deg) scale(1.035) translateY(-4px)`;
-        });
-        card.addEventListener("pointerleave", () => { card.style.transform = ""; card.style.transition = ""; });
-      });
-      observeReveals();
     }
-    function renderPills(id, options, current, dataName) {
-      element(id).innerHTML = options.map(option => {
-        const label = typeof option === "string" ? option : option.label;
-        return `<button class="pill${label === current ? " selected" : ""}" type="button" data-${dataName}="${escapeHTML(label)}" aria-pressed="${label === current}">${escapeHTML(label)}</button>`;
-      }).join("");
+    function renderPills(id, options, selected, dataName) {
+      element(id).innerHTML = options.length ? options.map(option => {
+        const label = option.label;
+        return `<button class="pill${label === selected ? " selected" : ""}" type="button" data-${dataName}="${escapeHTML(label)}" aria-pressed="${label === selected}">${escapeHTML(label)}</button>`;
+      }).join("") : '<span class="option-help">لا توجد خيارات متاحة</span>';
     }
     function renderOptions() {
-      renderPills("weight-options", WEIGHTS.map(item => item.label), WEIGHTS[state.weightIndex].label, "weight");
-      renderPills("grind-options", GRINDS, state.grind, "grind");
-      renderPills("blend-options", BLENDS, state.blend, "blend");
-      renderPills("roast-options", ROASTS, state.roast, "roast");
+      renderPills("weight-options", state.options.weights, state.weight, "weight");
+      renderPills("grind-options", state.options.grinds, state.grind, "grind");
+      renderPills("blend-options", state.options.blends, state.blend, "blend");
+      renderPills("roast-options", state.options.roasts, state.roast, "roast");
     }
     function updateSummary() {
       const product = selectedProduct();
-      const weight = WEIGHTS[state.weightIndex];
-      element("summary-coffee").textContent = product.name;
-      element("summary-weight").textContent = `${weight.label} · ${state.grind}`;
-      element("summary-blend").textContent = state.blend;
-      element("summary-roast").textContent = state.roast;
-      element("summary-quantity").textContent = state.quantity;
-      element("quantity-value").textContent = state.quantity;
-      element("summary-fulfillment").textContent = state.fulfillment === "pickup" ? "استلام من المطحنة" : state.fulfillment === "delivery" ? "توصيل للمنزل" : "اختر طريقة الاستلام";
-      element("summary-delivery-row").hidden = state.fulfillment !== "delivery";
-      element("summary-delivery-fee").textContent = money(currentDeliveryFee());
-      element("summary-total").textContent = money(currentPrice());
+      const weight = state.options.weights.find(option => option.label === state.weight);
+      element("summary-coffee").textContent = product ? product.name : "اختر نوع البن";
+      element("summary-weight").textContent = weight ? `${weight.label} · ${state.grind || "اختر الطحن"}` : "اختر الوزن والطحن";
+      element("summary-blend").textContent = state.blend || "—";
+      element("summary-roast").textContent = state.roast || "—";
+      element("summary-quantity").textContent = money(state.quantity);
+      element("quantity-value").textContent = money(state.quantity);
+      element("summary-fulfillment").textContent = state.fulfillment === "pickup" ? "استلام من المطحنة" : state.fulfillment === "delivery" ? "توصيل للمنزل" : "يحدد عند إتمام الطلب";
+      element("summary-delivery-row").hidden = true;
+      element("summary-total").textContent = money(currentLinePrice() * state.quantity);
+      element("add-to-cart").disabled = !product || !weight || !state.grind || !state.roast;
     }
-    function cartTotal() { return cartSubtotal() + cartDeliveryFee(); }
-    function cartCount() { return state.cart.reduce((total, item) => total + item.quantity, 0); }
+    function persistCart() {
+      try {
+        sessionStorage.setItem("alFouad.cart.v1", JSON.stringify(state.cart));
+      } catch (error) {
+        console.error("تعذر حفظ السلة في الجلسة الحالية:", error);
+      }
+      renderCart();
+    }
     function renderCart() {
-      const count = cartCount();
+      const count = state.cart.reduce((total, item) => total + item.quantity, 0);
       element("cart-count").textContent = money(count);
       element("drawer-count").textContent = money(count);
       element("cart-subtotal").textContent = money(cartSubtotal());
-      element("cart-delivery-row").hidden = !cartDeliveryFee();
-      element("cart-delivery-fee").textContent = money(cartDeliveryFee());
       element("cart-total").textContent = money(cartTotal());
+      element("cart-delivery-row").hidden = true;
       element("cart-items").innerHTML = state.cart.length ? state.cart.map((item, index) => `
-        <article class="cart-item">
-          <div><h3>${escapeHTML(item.productName)} · ${escapeHTML(item.weight)}</h3>
-            <p>${escapeHTML(item.grind)} · ${escapeHTML(item.blend)} · تحميص ${escapeHTML(item.roast)}<br>عدد الأكياس: ${money(item.quantity)}</p>
-            <button class="remove-item" type="button" data-remove="${index}">إزالة</button></div>
-          <strong class="cart-item-price">${money(item.price * item.quantity)} ج</strong>
-        </article>`).join("") : '<div class="empty-cart">سلتك فاضية حالياً — اختار خلطة تحبها.</div>';
-      element("cart-customer-name").textContent = state.customer.name || "أدخل بياناتك في الخطوة الأولى";
-      element("cart-customer-detail").textContent = state.customer.phone ? `${state.customer.phone} · ${state.customer.address}` : "";
+        <article class="cart-item"><div><h3>${escapeHTML(item.productName)} · ${escapeHTML(item.weight)}</h3>
+          <p>${escapeHTML(item.grind)} · ${escapeHTML(item.blend)} · تحميص ${escapeHTML(item.roast)}<br>عدد الأكياس: ${money(item.quantity)}</p>
+          <button class="remove-item" type="button" data-remove="${index}">إزالة</button></div>
+          <strong class="cart-item-price">${money(item.lineTotal)} ج</strong></article>`).join("") :
+        '<div class="empty-cart">سلتك فارغة — أضف اختيارك الأول.</div>';
+      element("cart-customer-name").textContent = state.customer.name || "أكمل بيانات العميل قبل الإرسال";
+      element("cart-customer-detail").textContent = state.customer.phone || "";
       element("cart-fulfillment-note").textContent = state.fulfillment === "pickup"
-        ? `استلام من ${STORE_INFO.address} · جاهز خلال ${STORE_INFO.pickupReadyTime} · بدون رسوم توصيل.`
-        : state.fulfillment === "delivery"
-          ? `توصيل للعنوان المسجل بالأعلى · رسوم التوصيل ${money(DELIVERY_FEE)} جنيه.`
-          : "اختر طريقة الاستلام في الخطوة الأولى قبل تأكيد الطلب.";
+        ? `استلام من المطحنة: ${STORE_INFO.address}.`
+        : state.fulfillment === "delivery" ? `توصيل إلى: ${state.customer.address || "أدخل العنوان في النموذج"}.` : "اختر الاستلام أو التوصيل من النموذج.";
       const checkoutButton = element("checkout-form").querySelector(".checkout-button");
-      checkoutButton.disabled = !state.cart.length || !customerReady();
+      checkoutButton.disabled = !state.cart.length;
       checkoutButton.style.opacity = checkoutButton.disabled ? ".5" : "1";
     }
     function updateCustomerStep() {
       state.customer = customerFormData();
-      saveStorage(STORAGE.customer, { ...state.customer, fulfillment: state.fulfillment });
-      const ready = customerReady();
-      element("add-to-cart").disabled = !ready;
-      element("customer-fulfillment-note").textContent = state.fulfillment === "pickup"
-        ? `عنوان المطحنة: ${STORE_INFO.address} · الطلب جاهز خلال ${STORE_INFO.pickupReadyTime} · لا توجد رسوم توصيل.`
-        : state.fulfillment === "delivery"
-          ? `سيتم التوصيل للعنوان المسجل بالأعلى، وتُضاف رسوم ثابتة ${money(DELIVERY_FEE)} جنيه للفاتورة.`
-          : ready
-            ? "تم حفظ بياناتك. اختر طريقة الاستلام للمتابعة."
-            : "أدخل الاسم ورقم الهاتف والعنوان بالتفصيل، ثم اختر طريقة الاستلام.";
+      const delivery = state.fulfillment === "delivery";
+      element("address-field").hidden = !delivery;
+      element("order-customer-address").required = delivery;
+      const note = state.fulfillment === "pickup" ? `عنوان المطحنة: ${STORE_INFO.address}.` :
+        delivery ? "أدخل عنوان التوصيل بالتفصيل لإكمال الطلب." : "اختر طريقة الاستلام وأكمل بيانات التواصل.";
+      element("customer-fulfillment-note").textContent = note;
+      renderCart();
       updateSummary();
-      renderCart();
-    }
-    function persistCart() {
-      saveStorage(STORAGE.cart, state.cart);
-      renderCart();
     }
     function openCart() {
       element("cart-drawer").classList.add("open");
@@ -780,152 +776,295 @@
       element("cart-backdrop").classList.remove("open");
       element("cart-drawer").setAttribute("aria-hidden", "true");
       document.body.classList.remove("drawer-open");
-      element("cart-open").focus();
     }
     function addToCart() {
-      if (!customerReady()) {
-        element("customer-step").scrollIntoView({ behavior: "smooth" });
-        element("customer-fulfillment-note").textContent = "أكمل بياناتك واختر طريقة الاستلام قبل إضافة الطلب.";
+      const product = selectedProduct();
+      const weight = state.options.weights.find(option => option.label === state.weight);
+      if (!product || !weight || !state.grind || !state.roast) {
+        showMessage("اختر نوع البن والوزن والتحميص والطحن أولاً.", true);
         return;
       }
-      const product = selectedProduct();
+      const lineTotal = currentLinePrice() * state.quantity;
       state.cart.push({
-        productId: product.id, productName: product.name, price: Math.round((product.price + selectedBlend().extra) * WEIGHTS[state.weightIndex].grams / 250),
-        weight: WEIGHTS[state.weightIndex].label, grind: state.grind, blend: state.blend, roast: state.roast, quantity: state.quantity
+        productId: product.id, productName: product.name, weight: weight.label, weightGrams: weight.grams,
+        grind: state.grind, blend: state.blend || "", roast: state.roast, quantity: state.quantity,
+        unitPrice: currentLinePrice(), lineTotal
       });
       persistCart();
-      showMessage("اتضاف طلبك للسلة، اختار باقي التفاصيل أو كمّل الطلب.", false);
-      element("add-to-cart").animate([{ transform: "scale(1)" }, { transform: "scale(1.035)" }, { transform: "scale(1)" }], { duration: 260 });
+      showMessage("أُضيف اختيارك للسلة. يمكنك اختيار نوع بن آخر أو إكمال الطلب.", false);
     }
     function openModal(id) {
       element(id).classList.add("open");
       document.body.classList.add("drawer-open");
-      element(id).querySelector(".modal-close").focus();
     }
     function closeModal(id) {
       element(id).classList.remove("open");
-      if (!element("admin-modal").classList.contains("open") && !element("receipt-modal").classList.contains("open") && !element("cart-drawer").classList.contains("open")) document.body.classList.remove("drawer-open");
-    }
-    function createOrderId() {
-      const day = new Date();
-      const date = `${day.getFullYear()}${String(day.getMonth() + 1).padStart(2, "0")}${String(day.getDate()).padStart(2, "0")}`;
-      return `BAF-${date}-${Math.random().toString(36).slice(2, 7).toUpperCase()}`;
-    }
-    function submitOrder(event) {
-      event.preventDefault();
-      state.customer = customerFormData();
-      saveStorage(STORAGE.customer, { ...state.customer, fulfillment: state.fulfillment });
-      const message = element("checkout-message");
-      message.textContent = "";
-      if (!state.cart.length) { message.textContent = "أضف قهوة إلى السلة أولاً."; return; }
-      if (!customerReady()) {
-        message.textContent = "أكمل الاسم ورقم الهاتف والعنوان واختر طريقة الاستلام في الخطوة الأولى.";
-        return;
+      if (!element("admin-modal").classList.contains("open") && !element("receipt-modal").classList.contains("open") && !element("cart-drawer").classList.contains("open")) {
+        document.body.classList.remove("drawer-open");
       }
-      const order = {
-        id: createOrderId(), customer: state.customer.name, phone: state.customer.phone, address: state.customer.address,
-        fulfillment: state.fulfillment === "delivery" ? "توصيل للمنزل" : "استلام من المطحنة",
-        deliveryFee: cartDeliveryFee(),
-        pickupAddress: state.fulfillment === "pickup" ? STORE_INFO.address : "",
-        pickupReadyTime: state.fulfillment === "pickup" ? STORE_INFO.pickupReadyTime : "",
-        items: state.cart.map(item => ({ ...item })), total: cartTotal(), status: ORDER_STATUSES[0], createdAt: new Date().toISOString()
-      };
-      state.orders.unshift(order);
-      if (!saveStorage(STORAGE.orders, state.orders)) { state.orders.shift(); message.textContent = "تعذّر حفظ الطلب. تأكد من مساحة التخزين وحاول مرة أخرى."; return; }
-      if (window.BON_AL_FOUAD_SUPABASE && window.BON_AL_FOUAD_SUPABASE.enabled) window.BON_AL_FOUAD_SUPABASE.saveOrder(order).catch(error => {
-        console.error("تعذر مزامنة الطلب مع Supabase:", error);
-        const syncMessage = element("receipt-cloud-message");
-        if (syncMessage) syncMessage.textContent = "حُفظ الطلب محلياً، لكن تعذرت المزامنة السحابية.";
-      });
-      state.cart = [];
-      persistCart();
-      closeCart();
-      renderReceipt(order);
-      openModal("receipt-modal");
-      renderAdmin();
     }
-    function renderReceipt(order) {
+    function normalizeList(data, key) {
+      if (Array.isArray(data)) return data;
+      if (data && Array.isArray(data[key])) return data[key];
+      if (data && Array.isArray(data.data)) return data.data;
+      return [];
+    }
+    function renderReceipt(orderNumber, orderItems, total) {
       element("receipt-content").innerHTML = `
-        <div class="receipt-box">
-          <div class="receipt-id">${escapeHTML(order.id)}</div>
-          <p style="color:var(--muted);font-size:11px">احتفظ برقم المتابعة، وورّيه للكاشير عند الاستلام.</p>
-          <div class="receipt-lines">
-            <div class="receipt-line"><span>الاسم</span><strong>${escapeHTML(order.customer)}</strong></div>
-            <div class="receipt-line"><span>رقم الهاتف</span><strong>${escapeHTML(order.phone)}</strong></div>
-            <div class="receipt-line"><span>طريقة الاستلام</span><strong>${escapeHTML(order.fulfillment)}</strong></div>
-            <div class="receipt-line"><span>العنوان المسجل</span><strong>${escapeHTML(order.address)}</strong></div>
-            ${order.pickupAddress ? `<div class="receipt-line"><span>عنوان المطحنة</span><strong>${escapeHTML(order.pickupAddress)}</strong></div><div class="receipt-line"><span>موعد الجاهزية</span><strong>خلال ${escapeHTML(order.pickupReadyTime)}</strong></div>` : ""}
-            ${order.fulfillment === "توصيل للمنزل" ? `<div class="receipt-line"><span>رسوم التوصيل</span><strong>${money(order.deliveryFee)} جنيه</strong></div>` : ""}
-            ${order.items.map(item => `<div class="receipt-line"><span>${escapeHTML(item.productName)} · ${escapeHTML(item.weight)} × ${money(item.quantity)}</span><strong>${money(item.price * item.quantity)} ج</strong></div>`).join("")}
-            <div class="summary-divider"></div>
-            <div class="receipt-line"><span>الإجمالي</span><strong class="receipt-total">${money(order.total)} جنيه</strong></div>
-            <div class="receipt-line"><span>الحالة</span><strong>${escapeHTML(order.status)}</strong></div>
-          </div>
-        </div>
-        <p class="drawer-message" id="receipt-cloud-message" role="status" aria-live="polite"></p>
+        <div class="receipt-box"><div class="receipt-id">${escapeHTML(orderNumber)}</div>
+          <p style="color:var(--muted);font-size:11px">تم إرسال طلبك بنجاح. احتفظ برقم الطلب للمتابعة.</p>
+          <div class="receipt-lines"><div class="receipt-line"><span>الاسم</span><strong>${escapeHTML(state.customer.name)}</strong></div>
+          <div class="receipt-line"><span>رقم الهاتف</span><strong>${escapeHTML(state.customer.phone)}</strong></div>
+          <div class="receipt-line"><span>عدد الأصناف</span><strong>${money(orderItems.length)}</strong></div>
+          <div class="receipt-line"><span>الإجمالي</span><strong class="receipt-total">${money(total)} جنيه</strong></div></div></div>
         <button class="outline-cta" style="width:100%;margin-top:13px" id="receipt-done" type="button">تم، شكراً</button>`;
       element("receipt-content").querySelector("#receipt-done").addEventListener("click", () => closeModal("receipt-modal"));
     }
-    function renderAdmin() {
-      const panel = element("admin-content");
-      if (!panel.dataset.authenticated) {
-        panel.innerHTML = `<form class="pin-wrap" id="admin-login"><p style="text-align:center;color:var(--muted);font-size:11px">أدخل رمز الإدارة للمتابعة.</p><div class="form-field"><label for="admin-pin">رمز الدخول</label><input id="admin-pin" type="password" inputmode="numeric" autocomplete="current-password" maxlength="8" required placeholder="••••"></div><p class="drawer-message" id="admin-login-message" role="status"></p><button class="cta" style="width:100%;margin-top:12px" type="submit">دخول لوحة الإدارة</button></form>`;
-        element("admin-login").addEventListener("submit", event => {
-          event.preventDefault();
-          if (element("admin-pin").value === "3020") { panel.dataset.authenticated = "true"; renderAdmin(); }
-          else element("admin-login-message").textContent = "رمز الدخول غير صحيح.";
-        });
+    async function submitOrder(event) {
+      event.preventDefault();
+      state.customer = customerFormData();
+      const message = element("checkout-message");
+      message.textContent = "";
+      if (!state.cart.length) { message.textContent = "أضف صنفاً واحداً على الأقل إلى السلة."; return; }
+      if (!customerReady()) {
+        message.textContent = "أدخل الاسم ورقم الهاتف، واختر الاستلام أو أدخل عنوان التوصيل.";
+        element("customer-step").scrollIntoView({ behavior: "smooth" });
         return;
       }
-      panel.innerHTML = `
-        <p style="color:var(--muted);font-size:10px">تغييرات المنتجات والطلبات تُحفظ على هذا الجهاز.</p>
-        <h3 style="margin:15px 0 6px;font-size:13px">تعديل المنتجات والأسعار</h3>
-        <div>${state.products.map(product => `<form class="admin-product" data-product-form="${escapeHTML(product.id)}">
-          <label>اسم البن<input name="name" value="${escapeHTML(product.name)}" maxlength="65" required></label>
-          <label>السعر / 250 جم<input name="price" type="number" min="1" max="100000" step="1" value="${product.price}" required></label>
-          <button class="mini-button" type="submit">حفظ</button>
-        </form>`).join("")}</div>
-        <h3 style="margin:25px 0 6px;font-size:13px">الطلبات الواردة (${money(state.orders.length)})</h3>
-        <div>${state.orders.length ? state.orders.map(order => `<article class="order-card">
-          <div class="order-card-head"><h3>${escapeHTML(order.id)} · ${escapeHTML(order.customer)}</h3><strong style="color:var(--gold-light);font-size:11px">${money(order.total)} ج</strong></div>
-          <p>الهاتف: ${escapeHTML(order.phone)} · ${escapeHTML(order.fulfillment)}\nعنوان العميل: ${escapeHTML(order.address)}${order.pickupAddress ? `\nعنوان المطحنة: ${escapeHTML(order.pickupAddress)} · الجاهزية خلال ${escapeHTML(order.pickupReadyTime)}` : `\nرسوم التوصيل: ${money(order.deliveryFee || 0)} جنيه`}\n${order.items.map(item => `${escapeHTML(item.productName)} (${escapeHTML(item.weight)}، ${escapeHTML(item.grind)}، ${escapeHTML(item.blend)}، تحميص ${escapeHTML(item.roast)}) × ${money(item.quantity)}`).join("\n")}</p>
-          <label style="color:var(--muted);font-size:9px" for="status-${escapeHTML(order.id)}">حالة الطلب</label>
-          <select id="status-${escapeHTML(order.id)}" data-order-status="${escapeHTML(order.id)}">${ORDER_STATUSES.map(status => `<option value="${escapeHTML(status)}"${status === order.status ? " selected" : ""}>${escapeHTML(status)}</option>`).join("")}</select>
-        </article>`).join("") : '<p style="color:var(--muted);font-size:11px">لا توجد طلبات حتى الآن.</p>'}</div>
-        <button class="mini-button" id="admin-logout" type="button" style="margin-top:16px">تسجيل الخروج من اللوحة</button>`;
-      panel.querySelectorAll("[data-product-form]").forEach(form => form.addEventListener("submit", event => {
-        event.preventDefault();
-        const product = state.products.find(item => item.id === form.dataset.productForm);
-        const formData = new FormData(form);
-        const name = String(formData.get("name")).trim();
-        const price = Number(formData.get("price"));
-        if (!product || !name || !Number.isFinite(price) || price <= 0) return;
-        product.name = name;
-        product.price = price;
-        if (!saveStorage(STORAGE.products, state.products)) return;
-        if (window.BON_AL_FOUAD_SUPABASE && window.BON_AL_FOUAD_SUPABASE.enabled) window.BON_AL_FOUAD_SUPABASE.saveProducts(state.products).catch(error => {
-          console.error("تعذر مزامنة المنتجات مع Supabase:", error);
-          const syncMessage = document.createElement("p");
-          syncMessage.className = "drawer-message";
-          syncMessage.textContent = "حُفظت التعديلات محلياً، لكن تعذرت المزامنة السحابية.";
-          element("admin-content").prepend(syncMessage);
+      const button = element("checkout-form").querySelector(".checkout-button");
+      button.disabled = true;
+      message.textContent = "جارٍ إرسال طلبك بأمان...";
+      try {
+        const orderItems = state.cart.map(item => ({ ...item }));
+        const total = cartTotal();
+        const result = await window.AL_FOUAD_SUPABASE.submitOrder({
+          customerName: state.customer.name,
+          phone: state.customer.phone,
+          fulfillment: state.fulfillment,
+          address: state.fulfillment === "delivery" ? state.customer.address : "",
+          notes: state.customer.notes,
+          items: state.cart.map(item => ({
+            product_id: item.productId, product_name: item.productName, weight_grams: item.weightGrams,
+            roast: item.roast, grind: item.grind, blend: item.blend, quantity: item.quantity,
+            unit_price: item.unitPrice, line_total: item.lineTotal
+          }))
         });
-        renderProducts();
-        updateSummary();
-        renderAdmin();
-        showMessage("تم حفظ تحديثات المنتجات.", false);
-      }));
-      panel.querySelectorAll("[data-order-status]").forEach(select => select.addEventListener("change", () => {
-        const order = state.orders.find(item => item.id === select.dataset.orderStatus);
-        if (!order || !ORDER_STATUSES.includes(select.value)) return;
-        order.status = select.value;
-        saveStorage(STORAGE.orders, state.orders);
-        renderAdmin();
-      }));
-      element("admin-logout").addEventListener("click", () => { delete panel.dataset.authenticated; renderAdmin(); });
+        const row = Array.isArray(result) ? result[0] : result;
+        const orderNumber = row && (row.order_number || row.orderNumber);
+        if (!orderNumber) throw new Error("تم الاتصال بالخادم لكن لم يرجع رقم الطلب.");
+        state.cart = [];
+        persistCart();
+        closeCart();
+        renderReceipt(orderNumber, orderItems, total);
+        openModal("receipt-modal");
+        message.textContent = "";
+      } catch (error) {
+        console.error("تعذر إرسال الطلب إلى Supabase:", error);
+        message.textContent = `تعذر إرسال الطلب: ${error.message || "خطأ غير معروف"}`;
+      } finally {
+        button.disabled = !state.cart.length;
+      }
     }
-
+    const pinFromDigits = value => normalizeDigits(value).replace(/\D/g, "");
+    function renderOrders(data) {
+      state.orders = normalizeList(data, "orders");
+      const panel = element("admin-content");
+      panel.innerHTML = `
+        <div class="order-card-head"><h3>الطلبات الواردة (${money(state.orders.length)})</h3><button class="mini-button" id="refresh-orders" type="button">تحديث</button></div>
+        <div>${state.orders.length ? state.orders.map(order => {
+          const id = order.id || order.order_id || order.order_number;
+          const items = Array.isArray(order.items) ? order.items : [];
+          return `<article class="order-card"><div class="order-card-head"><h3>طلب ${escapeHTML(order.order_number || id)} · ${escapeHTML(order.customer_name || order.customer || "")}</h3>
+            <strong style="color:var(--gold-light);font-size:11px">${money(order.total)} ج</strong></div>
+            <p>الهاتف: ${escapeHTML(order.phone || order.customer_phone || "")}
+طريقة الاستلام: ${escapeHTML(order.fulfillment || "")}
+العنوان: ${escapeHTML(order.address || "استلام من المطحنة")}
+ملاحظات: ${escapeHTML(order.notes || "—")}
+${items.map(item => `${escapeHTML(item.product_name || item.name_ar || item.name || "")} · ${money(item.weight_grams)} جم · تحميص ${escapeHTML(item.roast || "")} · طحن ${escapeHTML(item.grind || "")} · التحويجة ${escapeHTML(item.blend || "")} × ${money(item.quantity)}`).join("\n")}</p>
+            <label style="color:var(--muted);font-size:9px" for="status-${escapeHTML(id)}">حالة الطلب</label>
+            <select id="status-${escapeHTML(id)}" data-order-id="${escapeHTML(id)}" data-order-number="${escapeHTML(order.order_number || "")}">${Object.entries(STATUS_LABELS).map(([value, label]) => `<option value="${value}"${value === order.status ? " selected" : ""}>${label}</option>`).join("")}</select></article>`;
+        }).join("") : '<p style="color:var(--muted);font-size:11px">لا توجد طلبات واردة.</p>'}</div>
+        <p class="drawer-message" id="panel-message" role="status"></p>
+        <button class="mini-button" id="panel-logout" type="button" style="margin-top:12px">تسجيل الخروج</button>`;
+      element("refresh-orders").addEventListener("click", loadOrders);
+      panel.querySelectorAll("[data-order-id]").forEach(select => select.addEventListener("change", async () => {
+        select.disabled = true;
+        try {
+          await window.AL_FOUAD_SUPABASE.roasteryApi("update_order_status", "3020", {
+            order_id: select.dataset.orderId, order_number: select.dataset.orderNumber, status: select.value
+          });
+          await loadOrders();
+        } catch (error) {
+          console.error("تعذر تحديث حالة الطلب:", error);
+          const notice = element("panel-message");
+          notice.textContent = `تعذر تحديث الحالة: ${error.message || "خطأ غير معروف"}`;
+          select.disabled = false;
+        }
+      }));
+      element("panel-logout").addEventListener("click", () => showPanel("cashier", false));
+    }
+    async function loadOrders() {
+      const panel = element("admin-content");
+      const activeRoute = window.location.hash;
+      if (panel.querySelector("#refresh-orders")) panel.querySelector("#refresh-orders").disabled = true;
+      try {
+        const result = await window.AL_FOUAD_SUPABASE.roasteryApi("list_orders", "3020", {});
+        if (window.location.hash === activeRoute && activeRoute === "#cashier") renderOrders(result);
+      } catch (error) {
+        console.error("تعذر تحميل الطلبات:", error);
+        if (window.location.hash !== activeRoute || activeRoute !== "#cashier") return;
+        panel.innerHTML = `<p class="drawer-message">تعذر تحميل الطلبات: ${escapeHTML(error.message || "خطأ غير معروف")}</p><button class="mini-button" id="retry-orders" type="button">إعادة المحاولة</button>`;
+        element("retry-orders").addEventListener("click", loadOrders);
+      }
+    }
+    function renderCatalog(data) {
+      const products = normalizeList(data, "products").map(normalizeProduct);
+      const panel = element("admin-content");
+      const productForm = product => `<form class="admin-product" data-product-id="${escapeHTML(product.id)}">
+        <label>الاسم بالعربية<input name="name_ar" value="${escapeHTML(product.name)}" maxlength="100" required></label>
+        <label>الاسم بالإنجليزية<input name="name_en" value="${escapeHTML(product.nameEnglish)}" maxlength="100"></label>
+        <label>السعر/كجم<input name="price_per_kg" type="number" min="0" step="0.01" value="${product.pricePerKg}" required></label>
+        <label>زيادة/كجم<input name="extra_price_per_kg" type="number" step="0.01" value="${product.extraPricePerKg}"></label>
+        <label>الفئة<input name="category" value="${escapeHTML(product.category)}"></label>
+        <label>رابط الصورة<input name="image_url" type="url" value="${escapeHTML(product.image)}"></label>
+        <label>الترتيب<input name="sort_order" type="number" step="1" value="${product.sortOrder}"></label>
+        <label>الوصف بالعربية<input name="description_ar" value="${escapeHTML(product.description)}"></label>
+        <label><span>مفعّل</span><input name="active" type="checkbox"${product.active !== false ? " checked" : ""}></label>
+        <div><button class="mini-button" type="submit">حفظ</button> <button class="mini-button" type="button" data-delete-product="${escapeHTML(product.id)}">حذف</button></div>
+      </form>`;
+      panel.innerHTML = `<p style="color:var(--muted);font-size:10px">إدارة مباشرة لأصناف جدول المحمصة في Supabase.</p>
+        <h3 style="margin:15px 0 6px;font-size:13px">الأصناف (${money(products.length)})</h3>
+        <div>${products.map(productForm).join("") || '<p class="drawer-message">لا توجد أصناف في الكتالوج.</p>'}</div>
+        <h3 style="margin:22px 0 6px;font-size:13px">إضافة صنف</h3>
+        ${productForm({ id: "", name: "", nameEnglish: "", pricePerKg: 0, extraPricePerKg: 0, category: "blends", image: "", description: "", sortOrder: products.length + 1, active: true })}
+        <p class="drawer-message" id="panel-message" role="status"></p>
+        <button class="mini-button" id="panel-logout" type="button" style="margin-top:12px">تسجيل الخروج</button>`;
+      panel.querySelectorAll("[data-product-id]").forEach(form => form.addEventListener("submit", async event => {
+        event.preventDefault();
+        const data = new FormData(form);
+        const values = Object.fromEntries(data.entries());
+        const id = form.dataset.productId || (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function" ? crypto.randomUUID() : `product-${Date.now()}`);
+        const product = {
+          id, name_ar: String(values.name_ar).trim(), name_en: String(values.name_en || "").trim(),
+          price_per_kg: Number(values.price_per_kg), extra_price_per_kg: Number(values.extra_price_per_kg || 0),
+          category: String(values.category || "blends"), image_url: String(values.image_url || ""),
+          description_ar: String(values.description_ar || ""),
+          sort_order: Number(values.sort_order || 0), active: form.elements.active.checked
+        };
+        if (!product.name_ar || !Number.isFinite(product.price_per_kg) || product.price_per_kg <= 0) return;
+        const button = form.querySelector('[type="submit"]');
+        button.disabled = true;
+        try {
+          await window.AL_FOUAD_SUPABASE.roasteryApi("upsert_product", "5050", product);
+          const updated = await window.AL_FOUAD_SUPABASE.roasteryApi("admin_list_catalog", "5050", {});
+          renderCatalog(updated);
+          loadCatalog();
+        } catch (error) {
+          console.error("تعذر حفظ الصنف:", error);
+          element("panel-message").textContent = `تعذر حفظ الصنف: ${error.message || "خطأ غير معروف"}`;
+          button.disabled = false;
+        }
+      }));
+      panel.querySelectorAll("[data-delete-product]").forEach(button => button.addEventListener("click", async () => {
+        if (!window.confirm("هل تريد حذف هذا الصنف نهائياً؟")) return;
+        button.disabled = true;
+        try {
+          await window.AL_FOUAD_SUPABASE.roasteryApi("delete_product", "5050", { id: button.dataset.deleteProduct, product_id: button.dataset.deleteProduct });
+          renderCatalog(await window.AL_FOUAD_SUPABASE.roasteryApi("admin_list_catalog", "5050", {}));
+          loadCatalog();
+        } catch (error) {
+          console.error("تعذر حذف الصنف:", error);
+          element("panel-message").textContent = `تعذر حذف الصنف: ${error.message || "خطأ غير معروف"}`;
+          button.disabled = false;
+        }
+      }));
+      element("panel-logout").addEventListener("click", () => showPanel("admin", false));
+    }
+    async function loadCatalog() {
+      try {
+        const catalog = await window.AL_FOUAD_SUPABASE.loadCatalog();
+        state.products = catalog.products.map(normalizeProduct);
+        state.options = normalizeOptions(catalog.options);
+        if (!state.products.some(product => product.id === state.productId)) state.productId = state.products[0] ? state.products[0].id : "";
+        state.weight = state.options.weights.some(option => option.label === state.weight) ? state.weight : (state.options.weights[0] && state.options.weights[0].label);
+        state.roast = state.options.roasts.some(option => option.label === state.roast) ? state.roast : (state.options.roasts[0] && state.options.roasts[0].label);
+        state.grind = state.options.grinds.some(option => option.label === state.grind) ? state.grind : (state.options.grinds[0] && state.options.grinds[0].label);
+        state.blend = state.options.blends.some(option => option.label === state.blend) ? state.blend : (state.options.blends[0] && state.options.blends[0].label);
+        renderProducts();
+        renderOptions();
+        updateSummary();
+      } catch (error) {
+        console.error("تعذر تحميل كتالوج المحمصة:", error);
+        element("coffee-options").innerHTML = `<p class="section-note" role="alert">تعذر تحميل أصناف البن: ${escapeHTML(error.message || "تحقق من اتصال قاعدة البيانات")}</p>`;
+        showMessage("لم يتم تحميل الأسعار والخيارات من قاعدة البيانات.", true);
+      }
+    }
+    async function loginPanel(mode, pin) {
+      const expected = mode === "cashier" ? "3020" : "5050";
+      const normalizedPin = pinFromDigits(pin);
+      if (normalizedPin !== expected) throw new Error("رمز الدخول غير صحيح.");
+      const panel = element("admin-content");
+      panel.innerHTML = '<p class="drawer-message">جارٍ التحقق من الصلاحيات...</p>';
+      if (mode === "cashier") {
+        await loadOrders();
+      } else {
+        try {
+          renderCatalog(await window.AL_FOUAD_SUPABASE.roasteryApi("admin_list_catalog", normalizedPin, {}));
+        } catch (error) {
+          console.error("تعذر تحميل كتالوج الإدارة:", error);
+          panel.innerHTML = `<p class="drawer-message">تعذر فتح لوحة الإدارة: ${escapeHTML(error.message || "خطأ غير معروف")}</p><button class="mini-button" id="retry-admin" type="button">إعادة المحاولة</button>`;
+          element("retry-admin").addEventListener("click", () => loginPanel(mode, normalizedPin));
+        }
+      }
+    }
+    function showPanel(mode, authenticated) {
+      const panel = element("admin-content");
+      if (!mode) {
+        panel.innerHTML = `<p style="color:var(--muted);font-size:11px">اختر القسم المطلوب.</p>
+          <button class="cta" type="button" data-panel="cashier" style="width:100%;margin:8px 0">الكاشير / المحمصة</button>
+          <button class="outline-cta" type="button" data-panel="admin" style="width:100%">لوحة الأدمن</button>`;
+        panel.querySelectorAll("[data-panel]").forEach(button => button.addEventListener("click", () => { window.location.hash = button.dataset.panel; }));
+        return;
+      }
+      element("admin-title").textContent = mode === "cashier" ? "الكاشير / المحمصة" : "لوحة الأدمن";
+      if (authenticated) {
+        loginPanel(mode, mode === "cashier" ? "3020" : "5050");
+        return;
+      }
+      const pin = mode === "cashier" ? "3020" : "5050";
+      panel.innerHTML = `<form class="pin-wrap" id="panel-login"><p style="text-align:center;color:var(--muted);font-size:11px">أدخل رمز ${mode === "cashier" ? "الكاشير" : "الأدمن"} للدخول.</p>
+        <div class="form-field"><label for="panel-pin">رمز الدخول</label><input id="panel-pin" type="password" inputmode="numeric" autocomplete="current-password" maxlength="8" required placeholder="••••"></div>
+        <p class="drawer-message" id="panel-login-message" role="status"></p><button class="cta" style="width:100%;margin-top:12px" type="submit">دخول</button></form>`;
+      element("panel-login").addEventListener("submit", async event => {
+        event.preventDefault();
+        const button = event.currentTarget.querySelector('[type="submit"]');
+        button.disabled = true;
+        try {
+          const entered = pinFromDigits(element("panel-pin").value);
+          if (entered !== pin) throw new Error("رمز الدخول غير صحيح.");
+          await loginPanel(mode, entered);
+        } catch (error) {
+          element("panel-login-message").textContent = error.message || "تعذر تسجيل الدخول.";
+          button.disabled = false;
+        }
+      });
+    }
+    function openAdminRoute() {
+      const mode = window.location.hash === "#cashier" ? "cashier" : window.location.hash === "#admin" ? "admin" : "";
+      if (mode) {
+        closeModal("receipt-modal");
+        closeCart();
+        showPanel(mode, false);
+        openModal("admin-modal");
+      } else if (element("admin-modal").classList.contains("open")) {
+        closeModal("admin-modal");
+      }
+    }
     function observeReveals() {
+      if (!("IntersectionObserver" in window)) {
+        document.querySelectorAll(".reveal").forEach(node => node.classList.add("visible"));
+        return;
+      }
       const observer = new IntersectionObserver(entries => entries.forEach(entry => {
         if (entry.isIntersecting) { entry.target.classList.add("visible"); observer.unobserve(entry.target); }
       }), { threshold: .12 });
@@ -934,48 +1073,7 @@
     function updateScrollProgress() {
       const range = document.documentElement.scrollHeight - window.innerHeight;
       element("scroll-progress").style.width = `${range > 0 ? Math.min(100, window.scrollY / range * 100) : 0}%`;
-      scheduleHeroParallax();
     }
-    let heroPointer = { x: 0, y: 0 };
-    let parallaxFrame = 0;
-    function scheduleHeroParallax() {
-      if (parallaxFrame) return;
-      parallaxFrame = requestAnimationFrame(() => {
-        parallaxFrame = 0;
-        const hero = document.querySelector(".hero");
-        const scrollRatio = Math.min(window.scrollY / Math.max(hero.offsetHeight, 1), 1);
-        hero.querySelectorAll(".parallax-bean").forEach((bean, index) => {
-          const depth = index + 1;
-          bean.style.setProperty("--parallax-x", `${heroPointer.x * depth * 17}px`);
-          bean.style.setProperty("--parallax-y", `${heroPointer.y * depth * 13 - scrollRatio * depth * 38}px`);
-          bean.style.setProperty("--tilt-x", `${heroPointer.y * depth * 13}deg`);
-          bean.style.setProperty("--tilt-y", `${heroPointer.x * depth * -18}deg`);
-        });
-      });
-    }
-    function dismissIntro() {
-      const loader = element("intro-loader");
-      if (!loader || loader.classList.contains("done")) return;
-      loader.classList.add("done");
-      loader.setAttribute("aria-hidden", "true");
-    }
-    function imageFallback(image) {
-      const kind = image.dataset.fallback || "beans";
-      const colors = kind === "roast" ? ["#1A120E", "#6B4A2E"] : kind === "espresso" ? ["#1A120E", "#3A2418"] : kind === "turkish" ? ["#3A2418", "#AB8462"] : ["#1A120E", "#6B4A2E"];
-      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="700" viewBox="0 0 1000 700"><defs><linearGradient id="g" x2="1" y2="1"><stop stop-color="${colors[0]}"/><stop offset="1" stop-color="${colors[1]}"/></linearGradient></defs><rect width="1000" height="700" fill="url(#g)"/><circle cx="500" cy="350" r="115" fill="none" stroke="#D5C4AE" stroke-opacity=".5" stroke-width="3"/><path d="M470 295c75 22 75 88 0 110m60-110c-75 22-75 88 0 110" fill="none" stroke="#D5C4AE" stroke-opacity=".65" stroke-width="9" stroke-linecap="round"/><text x="500" y="540" fill="#D5C4AE" fill-opacity=".85" font-family="sans-serif" font-size="30" text-anchor="middle">BON AL-FOUAD</text></svg>`;
-      image.onerror = null;
-      image.src = `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
-    }
-    document.addEventListener("error", event => { if (event.target instanceof HTMLImageElement && event.target.dataset.fallback) imageFallback(event.target); }, true);
-
-    const heroSection = document.querySelector(".hero");
-    heroSection.addEventListener("pointermove", event => {
-      if (event.pointerType === "touch") return;
-      const bounds = heroSection.getBoundingClientRect();
-      heroPointer = { x: (event.clientX - bounds.left) / bounds.width - .5, y: (event.clientY - bounds.top) / bounds.height - .5 };
-      scheduleHeroParallax();
-    });
-    heroSection.addEventListener("pointerleave", () => { heroPointer = { x: 0, y: 0 }; scheduleHeroParallax(); });
     element("coffee-options").addEventListener("click", event => {
       const button = event.target.closest("[data-coffee]");
       if (!button) return;
@@ -986,7 +1084,7 @@
     document.addEventListener("click", event => {
       const target = event.target.closest("[data-weight], [data-grind], [data-blend], [data-roast], [data-fulfillment], [data-remove]");
       if (!target) return;
-      if (target.dataset.weight) state.weightIndex = WEIGHTS.findIndex(item => item.label === target.dataset.weight);
+      if (target.dataset.weight) state.weight = target.dataset.weight;
       if (target.dataset.grind) state.grind = target.dataset.grind;
       if (target.dataset.blend) state.blend = target.dataset.blend;
       if (target.dataset.roast) state.roast = target.dataset.roast;
@@ -997,8 +1095,7 @@
         persistCart();
       }
       if (target.matches("[data-weight], [data-grind], [data-blend], [data-roast], [data-fulfillment]")) {
-        const group = target.parentElement;
-        group.querySelectorAll("button").forEach(button => {
+        target.parentElement.querySelectorAll("button").forEach(button => {
           const active = button === target;
           button.classList.toggle("selected", active);
           button.setAttribute("aria-pressed", String(active));
@@ -1009,9 +1106,6 @@
     });
     element("customer-details-form").addEventListener("input", updateCustomerStep);
     element("customer-details-form").addEventListener("submit", event => { event.preventDefault(); updateCustomerStep(); });
-    element("order-customer-name").value = state.customer.name;
-    element("order-customer-phone").value = state.customer.phone;
-    element("order-customer-address").value = state.customer.address;
     element("decrease-quantity").addEventListener("click", () => { state.quantity = Math.max(1, state.quantity - 1); updateSummary(); });
     element("increase-quantity").addEventListener("click", () => { state.quantity = Math.min(99, state.quantity + 1); updateSummary(); });
     element("add-to-cart").addEventListener("click", addToCart);
@@ -1020,22 +1114,22 @@
     element("cart-backdrop").addEventListener("click", closeCart);
     element("checkout-form").addEventListener("submit", submitOrder);
     element("edit-customer").addEventListener("click", () => closeCart());
-    element("admin-open").addEventListener("click", () => { renderAdmin(); openModal("admin-modal"); });
-    element("intro-skip").addEventListener("click", dismissIntro);
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) dismissIntro();
-    else window.setTimeout(dismissIntro, 2400);
-    document.addEventListener("pointerdown", event => {
-      const button = event.target.closest("button,.cta");
-      if (!button || button.disabled) return;
-      const bounds = button.getBoundingClientRect();
-      const ripple = document.createElement("span");
-      ripple.className = "button-ripple";
-      ripple.style.left = `${event.clientX - bounds.left}px`;
-      ripple.style.top = `${event.clientY - bounds.top}px`;
-      button.append(ripple);
-      ripple.addEventListener("animationend", () => ripple.remove(), { once: true });
+    element("admin-open").addEventListener("click", () => {
+      if (["#admin", "#cashier"].includes(window.location.hash)) history.replaceState(null, "", window.location.pathname + window.location.search);
+      element("admin-title").textContent = "إدارة المحمصة";
+      showPanel("", false);
+      openModal("admin-modal");
     });
-    document.querySelectorAll(".modal-close").forEach(button => button.addEventListener("click", () => closeModal(button.closest(".modal-backdrop").id)));
+    element("intro-skip").addEventListener("click", () => {
+      element("intro-loader").classList.add("done");
+      element("intro-loader").setAttribute("aria-hidden", "true");
+    });
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) element("intro-skip").click();
+    else window.setTimeout(() => element("intro-skip").click(), 1800);
+    document.querySelectorAll(".modal-close").forEach(button => button.addEventListener("click", () => {
+      closeModal(button.closest(".modal-backdrop").id);
+      if (button.closest("#admin-modal") && ["#admin", "#cashier"].includes(window.location.hash)) history.replaceState(null, "", window.location.pathname + window.location.search);
+    }));
     document.querySelectorAll(".modal-backdrop").forEach(backdrop => backdrop.addEventListener("click", event => { if (event.target === backdrop) closeModal(backdrop.id); }));
     document.addEventListener("keydown", event => {
       if (event.key === "Escape") {
@@ -1044,34 +1138,21 @@
         else if (element("cart-drawer").classList.contains("open")) closeCart();
       }
     });
+    window.addEventListener("hashchange", openAdminRoute);
     window.addEventListener("scroll", updateScrollProgress, { passive: true });
     window.addEventListener("resize", updateScrollProgress);
-
-    renderProducts();
-    renderOptions();
-    element("fulfillment-options").querySelectorAll("[data-fulfillment]").forEach(button => {
-      const active = button.dataset.fulfillment === state.fulfillment;
-      button.classList.toggle("selected", active);
-      button.setAttribute("aria-pressed", String(active));
-    });
-    updateCustomerStep();
-    updateSummary();
+    try {
+      const savedCart = JSON.parse(sessionStorage.getItem("alFouad.cart.v1") || "[]");
+      if (Array.isArray(savedCart)) state.cart = savedCart;
+    } catch (error) {
+      console.error("تعذر استعادة السلة:", error);
+    }
     renderCart();
+    updateSummary();
     observeReveals();
     updateScrollProgress();
-    if (window.BON_AL_FOUAD_SUPABASE && window.BON_AL_FOUAD_SUPABASE.enabled) {
-      window.BON_AL_FOUAD_SUPABASE.loadProducts().then(products => {
-        if (!validProducts(products)) return;
-        state.products = products;
-        if (!state.products.some(product => product.id === state.productId)) state.productId = state.products[0].id;
-        saveStorage(STORAGE.products, state.products);
-        renderProducts();
-        updateSummary();
-      }).catch(error => {
-        console.error("تعذر تحميل المنتجات من Supabase:", error);
-        showMessage("تعذر تحميل الأسعار السحابية؛ يعرض الموقع الأسعار المحفوظة محلياً.", true);
-      });
-    }
+    openAdminRoute();
+    loadCatalog();
   </script>
 </body>
 </html>
