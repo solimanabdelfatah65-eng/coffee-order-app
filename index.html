@@ -252,6 +252,13 @@
     .trust-item p { margin: 4px 0 0; color: var(--muted); font-size: 10px; }
     footer { padding-block: 26px; border-top: 1px solid rgba(171,132,98,.19); color: var(--muted); text-align: center; font-size: 10px; }
     footer strong { color: var(--gold-light); }
+    .footer-signature {
+      display: flex; width: fit-content; max-width: 100%; align-items: center; justify-content: center; gap: 8px;
+      margin: 13px auto 0; padding-top: 10px; border-top: 1px solid rgba(171,132,98,.25);
+      color: var(--text); direction: ltr; font-size: 11px; letter-spacing: .035em;
+    }
+    .footer-signature-label { color: var(--gold); font-weight: 800; }
+    .footer-signature-handle { color: var(--gold-light); font-family: Georgia,serif; font-size: 14px; }
 
     .drawer-backdrop, .modal-backdrop { position: fixed; z-index: 30; inset: 0; background: rgba(0,0,0,.63); opacity: 0; visibility: hidden; transition: opacity .27s, visibility .27s; backdrop-filter: blur(4px); }
     .drawer-backdrop.open, .modal-backdrop.open { opacity: 1; visibility: visible; }
@@ -524,7 +531,17 @@
       </div>
     </section>
   </main>
-  <footer><div class="container">كل فنجان حكاية — <strong>بن الفؤاد</strong> · صنع بحب في مصر</div></footer>
+  <footer>
+    <div class="container">
+      <div>كل فنجان حكاية — <strong>بن الفؤاد</strong> · صنع بحب في مصر</div>
+      <div class="footer-signature" dir="ltr">
+        <span class="footer-signature-label">By SWE:</span>
+        <span>Soliman Abdelfatah</span>
+        <span aria-hidden="true">|</span>
+        <em class="footer-signature-handle">𝑖𝑙𝑠𝑒𝑚𝑜</em>
+      </div>
+    </div>
+  </footer>
 
   <div class="drawer-backdrop" id="cart-backdrop"></div>
   <aside class="cart-drawer" id="cart-drawer" aria-label="سلة المشتريات" aria-hidden="true">
